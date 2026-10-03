@@ -24,21 +24,24 @@ button,input,textarea{font:inherit;color:inherit}
 .top{position:fixed;top:0;left:0;right:0;z-index:5;padding:calc(env(safe-area-inset-top) + 0px) 0 0;background:var(--bg)}
 .track{position:relative;height:6px;background:var(--line)}
 .fill{position:absolute;left:0;top:0;bottom:0;background:var(--ink);width:calc(var(--p) * 100%);transition:width .7s cubic-bezier(.3,.7,.3,1)}
-.lane{position:relative;height:52px;margin:0 12px}
-.coon{position:absolute;top:4px;left:calc((100% - 80px - 40px) * var(--p));width:80px;height:44px;transition:left .7s cubic-bezier(.3,.7,.3,1);transform:scaleY(-1)}
+.lane{position:relative;height:70px;margin:0 12px}
+.coon{position:absolute;top:22px;left:calc((100% - 80px - 40px) * var(--p));width:80px;height:44px;transition:left .7s cubic-bezier(.3,.7,.3,1);transform:scaleY(-1)}
 .coon svg{display:block;width:80px;height:44px;image-rendering:pixelated}
+.heart{position:absolute;top:5px;left:calc((100% - 80px - 40px) * var(--p) + 50px);width:21px;height:18px;transition:left .7s cubic-bezier(.3,.7,.3,1);animation:bob 1.1s ease-in-out infinite}
+.heart svg{display:block;width:21px;height:18px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 .coon .fB{opacity:0}
 .coon.run .fA{animation:fa .16s steps(1) infinite}
 .coon.run .fB{animation:fb .16s steps(1) infinite}
 @keyframes fa{0%{opacity:1}50%{opacity:0}}
 @keyframes fb{0%{opacity:0}50%{opacity:1}}
-.sausage{position:absolute;right:0;top:16px;width:40px;height:16px;transition:transform .3s,opacity .3s}
+.sausage{position:absolute;right:0;top:34px;width:40px;height:16px;transition:transform .3s,opacity .3s}
 .sausage.gone{transform:scale(.2);opacity:0}
-.nom{position:absolute;right:4px;top:14px;font-weight:800;font-size:12px;opacity:0;transition:opacity .3s}
+.nom{position:absolute;right:4px;top:32px;font-weight:800;font-size:12px;opacity:0;transition:opacity .3s}
 .nom.on{opacity:1}
 
 /* ---------- form screens ---------- */
-main{min-height:100%;display:flex;align-items:center;justify-content:center;padding:110px 22px 110px}
+main{min-height:100%;display:flex;align-items:center;justify-content:center;padding:128px 22px 110px}
 .step{width:100%;max-width:560px;animation:in .38s cubic-bezier(.2,.7,.2,1)}
 .step.back{animation:inb .38s cubic-bezier(.2,.7,.2,1)}
 @keyframes in{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
@@ -63,7 +66,7 @@ textarea.inp{font-size:19px;font-weight:500;resize:none;min-height:120px;line-he
 .enter{font-size:13px;color:var(--ink-faint)}
 @media (hover:none){.enter{display:none}}
 
-.backbtn{position:fixed;left:16px;bottom:calc(18px + env(safe-area-inset-bottom));width:46px;height:46px;border-radius:12px;border:2px solid var(--line);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.backbtn{position:fixed;left:16px;bottom:calc(18px + env(safe-area-inset-bottom));height:46px;padding:0 16px 0 12px;gap:6px;font-weight:700;font-size:15px;border-radius:12px;border:2px solid var(--line);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center}
 .backbtn svg{width:20px;height:20px}
 
 /* language + choices */
@@ -180,7 +183,7 @@ const LANGS = [
 ];
 const LOCALE = {en:"en-US",ko:"ko-KR",es:"es-MX",pt:"pt-BR",zh:"zh-CN",ja:"ja-JP",ru:"ru-RU"};
 const T = {
-en:{title:"Transfer to 1053",pick:"Pick your language",
+en:{title:"Transfer to 1053",back:"Back",pick:"Pick your language",
  q:{nickname:"What's your game nickname?",server:"What server you coming from?",seat:"Seat color?",total:"Your total hero power?",squad:"Your 1st squad power?",kills:"Your kill count?",conf:"How sure are you about moving to 1053?",beef:"Got beef with anyone or any server?",comment:"Anything else we should know?"},
  ph:{nickname:"Type it here…",server:"e.g. 812",total:"e.g. 231.5",squad:"e.g. 45.2",kills:"e.g. 1,250,000",beef:"Who and what, keep it short",comment:"Optional, drop it here"},
  milHint:"In millions: 231.5 = 231,500,000",killsHint:"Ballpark's fine, nobody's counting every kill",beefOpts:["Nah, f drama", "Yeah, but left it behind", "Yeah, lemme explain"],
@@ -190,7 +193,7 @@ en:{title:"Transfer to 1053",pick:"Pick your language",
  e:{req:"Bruh, answer. Don't be a lazy bum",range:"Keep it between 80 and 600M",squadMax:"Can't be more than your total, chief",beefEmpty:"Spill it or pick another option",num:"Numbers only"},
  sending:"Sending…",weak:"Signal's weak. Keep this open, it'll go through",fail:"Didn't go through. Try again?",retry:"Try again",
  done:"Got it 🙌",doneSub:"We'll hit you up soon. See you on 1053.",doneNote:"(Send Lea a voice memo on Discord. Don't ask.)"},
-ko:{title:"1053 서버 이전",pick:"언어 선택",
+ko:{title:"1053 서버 이전",back:"뒤로",pick:"언어 선택",
  q:{nickname:"게임 닉네임 뭐야?",server:"어느 서버에서 와?",seat:"좌석 색깔은?",total:"총 영웅 전투력은?",squad:"1부대 전투력은?",kills:"킬 수는?",conf:"1053으로 넘어올 확률은?",beef:"누구랑 아니면 어떤 서버랑 트러블 있어?",comment:"더 하고 싶은 말 있어?"},
  ph:{nickname:"여기 입력…",server:"예: 812",total:"예: 231.5",squad:"예: 45.2",kills:"예: 1,250,000",beef:"누구랑 뭐 때문인지, 짧게",comment:"선택 사항, 편하게 적어줘"},
  milHint:"백만 단위: 231.5 = 231,500,000",killsHint:"대충 적어도 돼, 아무도 하나하나 안 세",beefOpts:["없어, 드라마 극혐", "있었는데 다 털었어", "있어, 설명할게"],
@@ -200,7 +203,7 @@ ko:{title:"1053 서버 이전",pick:"언어 선택",
  e:{req:"야, 답해. 게으름 피우지 마",range:"80~600 사이로 입력해줘",squadMax:"총 전투력보다 클 수는 없지, 대장",beefEmpty:"썰 풀든지 다른 거 골라",num:"숫자만 입력해줘"},
  sending:"보내는 중…",weak:"신호가 약해. 창 닫지 마, 곧 전송돼",fail:"전송 실패. 다시 해볼래?",retry:"다시 시도",
  done:"접수 완료 🙌",doneSub:"곧 연락할게. 1053에서 보자!",doneNote:"(디스코드로 Lea한테 음성 메시지 보내. 묻지 말고.)"},
-es:{title:"Transferencia a 1053",pick:"Elige tu idioma",
+es:{title:"Transferencia a 1053",back:"Atrás",pick:"Elige tu idioma",
  q:{nickname:"¿Cuál es tu nick en el juego?",server:"¿De qué server vienes?",seat:"¿Color de tu asiento?",total:"¿Tu poder total de héroes?",squad:"¿Poder de tu 1er escuadrón?",kills:"¿Cuántas kills llevas?",conf:"¿Qué tan seguro estás de cambiarte a 1053?",beef:"¿Traes bronca con alguien o con algún server?",comment:"¿Algo más que debamos saber?"},
  ph:{nickname:"Escríbelo aquí…",server:"ej. 812",total:"ej. 231.5",squad:"ej. 45.2",kills:"ej. 1,250,000",beef:"Con quién y qué pasó, cortito",comment:"Opcional, échalo aquí"},
  milHint:"En millones: 231.5 = 231,500,000",killsHint:"Aproximado está bien, nadie cuenta cada kill",beefOpts:["Nel, cero drama", "Sí, pero ya quedó atrás", "Sí, déjame explicar"],
@@ -210,7 +213,7 @@ es:{title:"Transferencia a 1053",pick:"Elige tu idioma",
  e:{req:"Bro, contesta. No seas flojo",range:"Entre 80 y 600M",squadMax:"No puede ser más que tu total, jefe",beefEmpty:"Suéltalo o elige otra opción",num:"Solo números"},
  sending:"Enviando…",weak:"Señal débil. No cierres, ya casi sale",fail:"No se mandó. ¿Otra vez?",retry:"Reintentar",
  done:"¡Listo! 🙌",doneSub:"Te escribimos pronto. Nos vemos en 1053.",doneNote:"(Mándale un audio a Lea por Discord. No preguntes.)"},
-pt:{title:"Transferência pro 1053",pick:"Escolhe teu idioma",
+pt:{title:"Transferência pro 1053",back:"Voltar",pick:"Escolhe teu idioma",
  q:{nickname:"Qual teu nick no jogo?",server:"Tá vindo de qual server?",seat:"Cor da vaga?",total:"Teu poder total de heróis?",squad:"Poder do teu 1º esquadrão?",kills:"Quantas kills tu tem?",conf:"Quão certo tu tá de vir pro 1053?",beef:"Tem treta com alguém ou algum server?",comment:"Mais alguma coisa pra gente saber?"},
  ph:{nickname:"Digita aqui…",server:"ex: 812",total:"ex: 231,5",squad:"ex: 45,2",kills:"ex: 1.250.000",beef:"Com quem e o quê, resumido",comment:"Opcional, manda aí"},
  milHint:"Em milhões: 231,5 = 231.500.000",killsHint:"Pode ser aproximado, ninguém conta cada kill",beefOpts:["Nada, odeio drama", "Tive, mas já superei", "Tenho, deixa eu explicar"],
@@ -220,7 +223,7 @@ pt:{title:"Transferência pro 1053",pick:"Escolhe teu idioma",
  e:{req:"Mano, responde. Deixa de preguiça",range:"Entre 80 e 600M",squadMax:"Não pode ser maior que teu total, chefe",beefEmpty:"Conta aí ou escolhe outra opção",num:"Só números"},
  sending:"Enviando…",weak:"Sinal fraco. Não fecha, já vai",fail:"Não foi. Tenta de novo?",retry:"Tentar de novo",
  done:"Recebido! 🙌",doneSub:"Logo a gente te chama. Te vejo no 1053.",doneNote:"(Manda um áudio pra Lea no Discord. Não pergunta.)"},
-zh:{title:"转服到 1053",pick:"选择语言",
+zh:{title:"转服到 1053",back:"上一步",pick:"选择语言",
  q:{nickname:"你的游戏昵称是？",server:"你从哪个服过来？",seat:"席位颜色？",total:"你的英雄总战力？",squad:"第一编队战力？",kills:"击杀数？",conf:"转到 1053 的把握有多大？",beef:"跟谁或者哪个服有过节吗？",comment:"还有啥想说的？"},
  ph:{nickname:"在这儿输入…",server:"例：812",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"跟谁、啥事，简单说",comment:"选填，随便写"},
  milHint:"单位：百万（231.5 = 231,500,000）",killsHint:"填个大概就行，没人一个个数",beefOpts:["没有，懒得搞事", "有过，已经翻篇了", "有，我说说"],
@@ -230,7 +233,7 @@ zh:{title:"转服到 1053",pick:"选择语言",
  e:{req:"兄弟，回答一下，别偷懒",range:"请填 80 到 600 之间",squadMax:"不能超过总战力啊，老大",beefEmpty:"说说看，或者换个选项",num:"只能填数字"},
  sending:"提交中…",weak:"信号不太好，别关页面，马上就好",fail:"没提交成功，再试一次？",retry:"重试",
  done:"收到啦 🙌",doneSub:"我们很快联系你，1053 见！",doneNote:"（去 Discord 给 Lea 发条语音，别问为啥。）"},
-ja:{title:"1053への移籍",pick:"言語を選んでね",
+ja:{title:"1053への移籍",back:"戻る",pick:"言語を選んでね",
  q:{nickname:"ゲームのニックネームは？",server:"どのサーバーから来る？",seat:"シートの色は？",total:"ヒーロー総戦力は？",squad:"第1部隊の戦力は？",kills:"撃破数は？",conf:"1053に移る気、どれくらい？",beef:"誰かとか、どこかのサーバーと揉めてる？",comment:"他に伝えたいことある？"},
  ph:{nickname:"ここに入力…",server:"例：812",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"誰と何があったか、短めに",comment:"任意、気軽にどうぞ"},
  milHint:"単位は百万（231.5 = 231,500,000）",killsHint:"だいたいでOK、誰も正確に数えてないし",beefOpts:["ないよ、ドラマは勘弁", "あったけど水に流した", "ある、説明する"],
@@ -240,7 +243,7 @@ ja:{title:"1053への移籍",pick:"言語を選んでね",
  e:{req:"おい、答えて。サボんなって",range:"80〜600の間で入力してね",squadMax:"総戦力より大きいのはナシだよ、ボス",beefEmpty:"書くか、他を選んでね",num:"数字だけでお願い"},
  sending:"送信中…",weak:"電波弱め。閉じないで、もうすぐ届くよ",fail:"送れなかった。もう一回？",retry:"再試行",
  done:"受け取ったよ 🙌",doneSub:"すぐ連絡するね。1053で会おう！",doneNote:"（DiscordでLeaにボイスメモ送ってね。理由は聞かないで。）"},
-ru:{title:"Переезд на 1053",pick:"Выбери язык",
+ru:{title:"Переезд на 1053",back:"Назад",pick:"Выбери язык",
  q:{nickname:"Твой ник в игре?",server:"С какого ты сервера?",seat:"Цвет места?",total:"Общая мощь героев?",squad:"Мощь 1-го отряда?",kills:"Сколько киллов?",conf:"Насколько уверен, что переедешь на 1053?",beef:"Есть тёрки с кем-то или с каким-то сервером?",comment:"Что-то ещё нам стоит знать?"},
  ph:{nickname:"Пиши сюда…",server:"напр. 812",total:"напр. 231,5",squad:"напр. 45,2",kills:"напр. 1 250 000",beef:"С кем и что, коротко",comment:"Необязательно, пиши что хочешь"},
  milHint:"В миллионах: 231,5 = 231 500 000",killsHint:"Можно примерно, никто киллы поштучно не считает",beefOpts:["Не, драма не моё", "Были, но всё в прошлом", "Есть, щас объясню"],
@@ -297,6 +300,8 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 
 /* ---------------------------- raccoon ---------------------------- */
 const PAL = {k:"#2B2B2B",g:"#8C8C8C",d:"#5C5C5C",w:"#F4F4F4"};
+const HEART = [".rr.rr.","rwrrrrr","rrrrrrr",".rrrrr.","..rrr..","...r..."];
+const HEART_SVG = (() => { const p={r:"#E0465A",w:"#FFFFFF"}; let o=""; HEART.forEach((r,y)=>[...r].forEach((c,x)=>{ if(p[c]) o+=`<rect x="${x}" y="${y}" width="1" height="1" fill="${p[c]}"/>`;})); return `<svg viewBox="0 0 7 6" shape-rendering="crispEdges" aria-hidden="true">${o}</svg>`; })();
 const BODY = [
   "............kk..kk..",
   "...........gggggggg.",
@@ -324,7 +329,7 @@ function drawTop(p, finished){
   if (!document.querySelector(".track")) {
     $top.className = "top";
     $top.innerHTML = `<div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100"><div class="fill"></div></div>
-      <div class="lane"><div class="coon">${COON_SVG}</div><div class="sausage">${SAUS_SVG}</div><div class="nom">nom</div></div>`;
+      <div class="lane"><div class="heart">${HEART_SVG}</div><div class="coon">${COON_SVG}</div><div class="sausage">${SAUS_SVG}</div><div class="nom">nom</div></div>`;
   }
   $top.style.setProperty("--p", p);
   $top.querySelector(".track").setAttribute("aria-valuenow", Math.round(p*100));
@@ -384,7 +389,7 @@ function render(){
       ${showOk && st.type!=="textarea" && st.type!=="beef" ? `<span class="enter">${esc(L.enter)}</span>` : ""}
     </div>
   </section></main>
-  <button class="backbtn" id="bk" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>`;
+  <button class="backbtn" id="bk"><svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>${esc(L.back)}</button>`;
 
   const v = document.getElementById("v"), er = document.getElementById("er"), pv = document.getElementById("pv");
   const loc = LOCALE[S.lang];
