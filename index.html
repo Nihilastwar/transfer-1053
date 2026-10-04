@@ -7,157 +7,177 @@
 <title>Transfer to 1053</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#E0465A">
+<meta name="theme-color" content="#EEF1F5">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Server 1053">
 <meta property="og:title" content="Join 1053">
-<meta property="og:description" content="Nobody here has ever made a bad decision. Don&#39;t fact check that. Overall we tried to be normal once, got bored after 3 mins and now we just chillin. #yeroloveslea">
+<meta property="og:description" content="Nobody here has ever made a bad decision. Don&#39;t fact check that. Overall we tried to be normal once, got bored after 3 mins and now we just vibin. #yeroloveslea">
 <meta property="og:url" content="https://nihilastwar.github.io/transfer-1053/">
 <meta property="og:image" content="https://nihilastwar.github.io/transfer-1053/banner.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Join 1053">
-<meta name="twitter:description" content="Nobody here has ever made a bad decision. Don&#39;t fact check that. Overall we tried to be normal once, got bored after 3 mins and now we just chillin. #yeroloveslea">
+<meta name="twitter:description" content="Nobody here has ever made a bad decision. Don&#39;t fact check that. Overall we tried to be normal once, got bored after 3 mins and now we just vibin. #yeroloveslea">
 <meta name="twitter:image" content="https://nihilastwar.github.io/transfer-1053/banner.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* ================================ LOOK ================================ */
 :root{
-  --ink:#444444; --ink-soft:#6E6E6E; --ink-faint:#9A9A9A;
-  --bg:#ECECEC; --paper:#F6F6F6; --line:#D4D4D4; --err:#B3261E; --ok:#2E7D4F;
+  --ink:#333333; --ink-soft:#5F6670; --ink-faint:#98A0AA;
+  --bg:#EEF1F5; --paper:#F8FAFC; --card:#FFFFFF; --line:#D5DBE3;
+  --err:#B3261E; --ok:#23784A; --okbg:#DCEFE3; --errbg:#F6DEDC;
   --gold:#D4A62A; --purple:#7A4FC4; --blue:#2F6BD1; --white:#FFFFFF;
+  --ease:cubic-bezier(.2,.75,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{font-family:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 button,input,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:8px}
 
-/* ---------- progress + raccoon ---------- */
-.top{position:fixed;top:0;left:0;right:0;z-index:5;padding:calc(env(safe-area-inset-top) + 0px) 0 0;background:var(--bg)}
-.track{display:flex;gap:4px;padding:10px 12px 0}
-.seg{flex:1;height:8px;border-radius:4px;background:var(--line);transition:background .35s}
+/* ---------- top: progress + raccoon + back ---------- */
+.top{position:fixed;top:0;left:0;right:0;z-index:5;background:var(--bg);padding-top:env(safe-area-inset-top)}
+.track{display:flex;gap:4px;padding:12px 14px 0}
+.seg{flex:1;height:7px;border-radius:4px;background:var(--line);transition:background .35s}
 .seg.done{background:var(--ink)}
 .seg.cur{background:var(--ink-faint)}
-.lane{position:relative;height:44px;margin:0 12px}
-.coon{position:absolute;top:4px;left:calc((100% - 60px - 32px) * var(--p));width:60px;height:33px;transition:left .7s cubic-bezier(.3,.7,.3,1);transform:scaleY(-1)}
-.coon svg{display:block;width:60px;height:33px;image-rendering:pixelated}
-.heart{position:absolute;top:39px;left:calc((100% - 60px - 32px) * var(--p) + 37px);width:16px;height:14px;opacity:0;transform:scale(.2);transition:left .7s cubic-bezier(.3,.7,.3,1),opacity .25s,transform .35s cubic-bezier(.3,1.6,.5,1)}
-.heart.on{opacity:1;transform:scale(1);transition-delay:0s,.85s,.85s}
-.heart.on svg{animation:bob 1.1s 1.2s ease-in-out infinite}
-.heart svg{display:block;width:16px;height:14px;transform:scaleY(-1)}
-@keyframes bob{0%,100%{transform:scaleY(-1) translateY(0)}50%{transform:scaleY(-1) translateY(-3px)}}
+.lane{position:relative;height:42px;margin:0 14px}
+.coon{position:absolute;top:4px;left:calc((100% - 60px - 32px) * var(--p));width:60px;height:33px;transition:left .7s var(--ease);transform:scaleY(-1)}
+.coon svg{display:block;width:60px;height:33px}
 .coon .fB{opacity:0}
 .coon.run .fA{animation:fa .16s steps(1) infinite}
 .coon.run .fB{animation:fb .16s steps(1) infinite}
 @keyframes fa{0%{opacity:1}50%{opacity:0}}
 @keyframes fb{0%{opacity:0}50%{opacity:1}}
+.heart{position:absolute;top:39px;left:calc((100% - 60px - 32px) * var(--p) + 37px);width:16px;height:14px;opacity:0;transform:scale(.2);transition:left .7s var(--ease),opacity .25s,transform .35s cubic-bezier(.3,1.6,.5,1)}
+.heart.on{opacity:1;transform:scale(1);transition-delay:0s,.85s,.85s}
+.heart svg{display:block;width:16px;height:14px;transform:scaleY(-1)}
+.heart.on svg{animation:bob 1.1s 1.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:scaleY(-1) translateY(0)}50%{transform:scaleY(-1) translateY(-3px)}}
 .sausage{position:absolute;right:0;top:14px;width:32px;height:13px;transition:transform .3s,opacity .3s}
 .sausage.gone{transform:scale(.2);opacity:0}
 .nom{position:absolute;right:2px;top:12px;font-weight:800;font-size:12px;opacity:0;transition:opacity .3s}
 .nom.on{opacity:1}
+.backrow{height:44px;padding:4px 14px 0}
+.backbtn{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px 0 10px;border-radius:10px;border:2px solid var(--line);background:var(--paper);font-weight:700;font-size:14px;transition:transform .12s var(--ease),border-color .2s}
+.backbtn:active{transform:scale(.95)}
+.backbtn svg{width:18px;height:18px}
 
 /* ---------- form screens ---------- */
-main{min-height:100%;display:flex;align-items:center;justify-content:center;padding:118px 22px 110px}
-.step{width:100%;max-width:560px;animation:in .38s cubic-bezier(.2,.7,.2,1)}
-.step.back{animation:inb .38s cubic-bezier(.2,.7,.2,1)}
-@keyframes in{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-@keyframes inb{from{opacity:0;transform:translateY(-26px)}to{opacity:1;transform:none}}
-.num{font-size:14px;font-weight:600;color:var(--ink-soft);margin-bottom:10px}
-h1{font-size:clamp(26px,6.4vw,36px);line-height:1.18;font-weight:700;letter-spacing:-.01em}
-.hint{margin-top:10px;font-size:15px;color:var(--ink-soft);line-height:1.45}
-.field{margin-top:28px;position:relative}
-.inp{width:100%;border:0;border-bottom:2px solid var(--line);background:transparent;padding:6px 0 10px;font-size:26px;font-weight:600;outline:none;border-radius:0;transition:border-color .2s}
-.inp::placeholder{color:var(--ink-faint);font-weight:500}
+main{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:150px 22px 64px}
+.step{width:100%;max-width:560px}
+.step.in{animation:in .42s var(--ease)}
+.step.inb{animation:inb .42s var(--ease)}
+.step.out{animation:out .16s ease-in forwards}
+.step.outb{animation:outb .16s ease-in forwards}
+@keyframes in{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes inb{from{opacity:0;transform:translateY(-28px)}to{opacity:1;transform:none}}
+@keyframes out{to{opacity:0;transform:translateY(-18px)}}
+@keyframes outb{to{opacity:0;transform:translateY(18px)}}
+.num{font-size:14px;font-weight:700;color:var(--ink-soft);margin-bottom:10px}
+h1{font-size:clamp(27px,6.8vw,38px);line-height:1.14;font-weight:800;letter-spacing:-.025em}
+h2.sub{font-size:19px;font-weight:800;letter-spacing:-.015em;margin-top:26px}
+.hint{margin-top:10px;font-size:15px;color:var(--ink-soft);line-height:1.45;font-weight:500}
+.field{margin-top:24px;position:relative}
+.inp{width:100%;border:0;border-bottom:2px solid var(--line);background:transparent;padding:6px 0 10px;font-size:26px;font-weight:700;letter-spacing:-.01em;outline:none;border-radius:0;transition:border-color .25s}
+.inp::placeholder{color:var(--ink-faint);font-weight:600}
 .inp:focus{border-bottom-color:var(--ink)}
+.inp.small{font-size:20px}
 .inp.has-suffix{padding-right:46px}
-.suffix{position:absolute;right:2px;bottom:12px;font-size:22px;font-weight:700;color:var(--ink-soft)}
-textarea.inp{font-size:19px;font-weight:500;resize:none;min-height:120px;line-height:1.45}
-.preview{margin-top:10px;font-size:15px;font-weight:600;color:var(--ink-soft);min-height:22px}
-.err{margin-top:12px;font-size:15px;font-weight:600;color:var(--err);min-height:22px}
-.actions{margin-top:22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.btn{background:var(--ink);color:#fff;border:0;border-radius:12px;padding:14px 26px;font-size:17px;font-weight:700;cursor:pointer;transition:transform .12s,background .2s}
-.btn:active{transform:scale(.97)}
+.suffix{position:absolute;right:2px;bottom:12px;font-size:22px;font-weight:800;color:var(--ink-soft)}
+textarea.inp{font-size:19px;font-weight:600;resize:none;min-height:110px;line-height:1.45}
+.preview{margin-top:10px;font-size:15px;font-weight:700;color:var(--ink-soft);min-height:22px}
+.err{margin-top:12px;font-size:15px;font-weight:700;color:var(--err);min-height:22px}
+.err.info{color:var(--ink-soft)}
+.shake{animation:shake .38s}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.actions{margin-top:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:12px;padding:15px 28px;font-size:17px;font-weight:800;transition:transform .12s var(--ease),opacity .2s}
+.btn:active{transform:scale(.95)}
 .btn[disabled]{opacity:.55;cursor:default}
-.link{background:none;border:0;font-weight:600;font-size:15px;color:var(--ink-soft);cursor:pointer;padding:6px 2px;text-decoration:underline;text-underline-offset:3px}
-.enter{font-size:13px;color:var(--ink-faint)}
+.link{background:none;border:0;font-weight:700;font-size:15px;color:var(--ink-soft);padding:6px 2px;text-decoration:underline;text-underline-offset:3px}
+.enter{font-size:13px;color:var(--ink-faint);font-weight:600}
 @media (hover:none){.enter{display:none}}
 
-.backbtn{position:fixed;left:16px;bottom:calc(18px + env(safe-area-inset-bottom));height:46px;padding:0 16px 0 12px;gap:6px;font-weight:700;font-size:15px;border-radius:12px;border:2px solid var(--line);background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center}
-.backbtn svg{width:20px;height:20px}
-
-/* language + choices */
 .langs{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--paper);border:2px solid var(--line);border-radius:12px;padding:14px 14px;font-size:16px;font-weight:600;cursor:pointer;transition:border-color .15s,transform .12s}
+.opts{margin-top:24px;display:grid;gap:10px}
+.opt{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--paper);border:2px solid var(--line);border-radius:12px;padding:14px 44px 14px 16px;font-size:16px;font-weight:700;transition:border-color .15s,transform .12s var(--ease),background .15s}
 .opt:active{transform:scale(.98)}
-.opt.sel{border-color:var(--ink);background:#fff}
-.seats{margin-top:26px;display:grid;gap:10px}
-.sw{width:26px;height:26px;border-radius:7px;flex:none;border:2px solid rgba(0,0,0,.12)}
+.opt.sel{border-color:var(--ink);background:var(--card)}
+.opt .tick{position:absolute;right:16px;top:50%;width:18px;height:18px;margin-top:-9px;opacity:0;transform:scale(.4);transition:opacity .2s,transform .25s cubic-bezier(.3,1.6,.5,1)}
+.opt.sel .tick{opacity:1;transform:scale(1)}
+.opt.blink{animation:blink .34s steps(1) 2}
+@keyframes blink{0%{background:var(--ink);color:#fff;border-color:var(--ink)}50%{background:var(--card);color:var(--ink)}}
+.sw{width:24px;height:24px;border-radius:7px;flex:none;border:2px solid rgba(0,0,0,.1)}
 .sw.gold{background:var(--gold)}.sw.purple{background:var(--purple)}.sw.blue{background:var(--blue)}.sw.white{background:var(--white);border-color:var(--line)}
 
-/* slider */
-.conf{margin-top:34px}
-.conf-label{font-size:24px;font-weight:700;min-height:36px}
-.conf-label.unset{color:var(--ink-faint);font-weight:600}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin-top:12px;cursor:pointer}
+.conf{margin-top:30px}
+.conf-label{font-size:24px;font-weight:800;letter-spacing:-.015em;min-height:34px}
+.conf-label.small{font-size:19px;min-height:28px}
+.conf-label.unset{color:var(--ink-faint);font-weight:700}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin-top:10px}
 input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:var(--line)}
 input[type=range]::-moz-range-track{height:8px;border-radius:8px;background:var(--line)}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--ink);margin-top:-11px;border:4px solid var(--bg)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--ink);margin-top:-11px;border:4px solid var(--bg);transition:transform .15s}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.15)}
 input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--ink);border:4px solid var(--bg)}
 input[type=range].unset::-webkit-slider-thumb{background:var(--ink-faint)}
 input[type=range].unset::-moz-range-thumb{background:var(--ink-faint)}
-.ticks{display:flex;justify-content:space-between;padding:0 6px;font-size:14px;font-weight:700;color:var(--ink-soft)}
+.ticks{display:flex;justify-content:space-between;padding:0 6px;font-size:14px;font-weight:800;color:var(--ink-soft)}
 
-.done h1{font-size:clamp(30px,8vw,44px)}
-.done .note{margin-top:28px;font-size:14px}
+.done h1{font-size:clamp(32px,8.5vw,46px)}
+.done .note{margin-top:30px;font-size:14px;font-weight:700}
 
 /* ---------- board ---------- */
-.board{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+.board{max-width:780px;margin:0 auto;padding:22px 16px 60px}
 .bhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.bhead h1{font-size:24px}
-.bsub{font-size:14px;color:var(--ink-soft);font-weight:500;margin-top:2px}
+.bhead h1{font-size:26px}
+.bsub{font-size:14px;color:var(--ink-soft);font-weight:600;margin-top:2px}
 .bbtns{display:flex;gap:8px}
-.bbtn{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:700;font-size:14px;cursor:pointer}
+.bbtn{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:800;font-size:14px}
 .bbtn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
-.totals{margin-top:18px;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:14px 16px}
-.totals h2{font-size:15px;font-weight:700;margin-bottom:8px}
-.trow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:15px}
-.trow:first-of-type{border-top:0}
-.trow b{font-weight:700;white-space:nowrap}
-.trow span{display:flex;align-items:center;gap:8px}
-.trow .sw{width:16px;height:16px;border-radius:4px}
-.tgrid{display:grid;grid-template-columns:1fr;gap:12px}
+.tgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px}
 @media(min-width:620px){.tgrid{grid-template-columns:1fr 1fr}}
+.totals{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:14px 16px}
+.totals h2{font-size:15px;font-weight:800;margin-bottom:6px}
+.trow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:15px;font-weight:600}
+.trow:first-of-type{border-top:0}
+.trow b{font-weight:800;white-space:nowrap}
+.trow span{display:flex;align-items:center;gap:8px;min-width:0;word-break:break-word}
+.trow .sw{width:16px;height:16px;border-radius:4px}
+.crews{margin-top:12px}
+.crews .trow b{white-space:normal;text-align:right}
 .group{margin-top:26px}
-.ghead{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700}
-.ghead small{font-size:14px;color:var(--ink-soft);font-weight:500}
+.ghead{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800}
+.ghead small{font-size:14px;color:var(--ink-soft);font-weight:600}
 .card{margin-top:10px;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:14px 16px}
 .card.dupe{opacity:.55}
 .ctop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.cname{font-size:18px;font-weight:700;word-break:break-word}
-.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-.badge{font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--line)}
-.badge.warm{background:#D9EFE1;color:var(--ok)}
-.badge.dup{background:#F5D9D7;color:var(--err)}
+.cname{font-size:18px;font-weight:800;word-break:break-word}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.badge{font-size:12px;font-weight:800;padding:3px 8px;border-radius:6px;background:var(--line);word-break:break-word}
+.badge.warm{background:var(--okbg);color:var(--ok)}
+.badge.red{background:var(--errbg);color:var(--err)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.stat small{display:block;font-size:12px;color:var(--ink-soft);font-weight:500}
-.stat b{font-size:16px;font-weight:700}
-.comment{margin-top:10px;font-size:14px;line-height:1.45;color:var(--ink-soft);white-space:pre-wrap;word-break:break-word}
-.applied{flex:none;display:flex;align-items:center;gap:8px;background:transparent;border:2px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:700;font-size:13px;cursor:pointer}
+.stat small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600}
+.stat b{font-size:16px;font-weight:800}
+.comment{margin-top:10px;font-size:14px;line-height:1.45;color:var(--ink-soft);white-space:pre-wrap;word-break:break-word;font-weight:500}
+.comment b{color:var(--ink)}
+.applied{flex:none;display:flex;align-items:center;gap:8px;background:transparent;border:2px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:800;font-size:13px}
 .applied .box{width:18px;height:18px;border-radius:5px;border:2px solid var(--ink-soft);display:flex;align-items:center;justify-content:center}
 .applied.on{border-color:var(--ok);color:var(--ok)}
 .applied.on .box{background:var(--ok);border-color:var(--ok)}
 .applied.on .box::after{content:"";width:8px;height:4px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
-.empty{margin-top:30px;color:var(--ink-soft);font-weight:500}
+.empty{margin-top:30px;color:var(--ink-soft);font-weight:600}
 .login{max-width:400px;margin:0 auto;padding:110px 22px}
 .login .inp{font-size:19px;margin-top:18px}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;font-size:14px;z-index:20;max-width:90vw}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:14px;z-index:20;max-width:90vw}
 
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -165,10 +185,7 @@ input[type=range].unset::-moz-range-thumb{background:var(--ink-faint)}
 <div id="app"></div>
 
 <script type="module">
-/* =====================================================================
-   1) PASTE YOUR FIREBASE CONFIG HERE (Firebase console > Project settings
-      > Your apps > Web app > firebaseConfig). Keep the quotes.
-   ===================================================================== */
+/* ============================ CONNECTION ============================ */
 const firebaseConfig = {
   apiKey: "AIzaSyDKo1V6pkRFGW4MAFLpxW_Odg0nfdSkFVA",
   authDomain: "transfers-to-1053.firebaseapp.com",
@@ -177,105 +194,127 @@ const firebaseConfig = {
   messagingSenderId: "731947968155",
   appId: "1:731947968155:web:284a5d9a8e59e28e7d083e"
 };
-/* ===================================================================== */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, doc, setDoc, updateDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const CONFIGURED = !Object.values(firebaseConfig).some(v => String(v).includes("PASTE_HERE"));
-let db = null, auth = null;
-if (CONFIGURED) {
-  const fb = initializeApp(firebaseConfig);
-  db = getFirestore(fb);
-  auth = getAuth(fb);
-}
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+const auth = getAuth(fbApp);
 const COL = "applications";
+const DRAFT_KEY = "t1053_v2_pending";
+
+/* ============================ TEXTS ============================ */
 const SEATS = ["gold","purple","blue","white"];
 const BEEF = ["none","past","explain"];
-const DRAFT_KEY = "t1053_pending";
-
-/* ---------------------------- texts ---------------------------- */
-const LANGS = [
-  ["en","English"],["ko","한국어"],["es","Español (MX)"],["pt","Português (BR)"],
-  ["zh","中文"],["ja","日本語"],["ru","Русский"]
-];
+const LANGS = [["en","English"],["ko","한국어"],["es","Español (MX)"],["pt","Português (BR)"],["zh","中文"],["ja","日本語"],["ru","Русский"]];
 const LOCALE = {en:"en-US",ko:"ko-KR",es:"es-MX",pt:"pt-BR",zh:"zh-CN",ja:"ja-JP",ru:"ru-RU"};
 const T = {
 en:{title:"Transfer to 1053",back:"Back",pick:"Pick your language",
- q:{nickname:"What's your game nickname?",server:"What server you coming from?",seat:"Seat color?",total:"Your total hero power?",squad:"Your 1st squad power?",kills:"Your kill count?",conf:"How sure are you about moving to 1053?",beef:"Got beef with anyone or any server?",comment:"Anything else we should know?"},
- ph:{nickname:"Type it here…",server:"e.g. 812",total:"e.g. 231.5",squad:"e.g. 45.2",kills:"e.g. 1,250,000",beef:"Who and what, keep it short",comment:"Optional, drop it here"},
- milHint:"In millions: 231.5 = 231,500,000",killsHint:"Ballpark's fine, nobody's counting every kill",beefOpts:["Nah, f drama", "Yeah, but left it behind", "Yeah, lemme explain"],
+ q:{nickname:"What's your game nickname?",server:"What server you coming from?",crew:"Coming with a crew?",rejoin:"Rejoining friends or an alliance on 1053?",seat:"Seat color?",total:"Your total hero power?",squad:"Your 1st squad power?",kills:"Your kill count?",conf:"How sure are you about moving to 1053?",beef:"Got beef with anyone or any server?",comment:"Anything else we should know?"},
+ ph:{nickname:"Type it here…",server:"e.g. 812",crewWord:"e.g. LMPR or BANANA SQUAD",rejoin:"Team name or their nickname",total:"e.g. 231.5",squad:"e.g. 45.2",kills:"e.g. 1,250,000",beef:"Who and what, keep it short",comment:"Optional, drop it here"},
+ crewOpts:["Nah, I'm solo","Yeah, with my crew"],crewWordQ:"Crew code word?",crewWordHint:"Use your current alliance name, or pick a word and agree on it with your crew. Everyone uses the same one.",
+ crewSizeQ:"How many of y'all, roughly? (optional)",crewSizeUnset:"Slide if you know 👉",crewSizeVal:"~{n} people",
+ rejoinOpts:["Nope","Yeah"],rejoinQ:"Which team or person you rejoining?",
+ milHint:"In millions: 231.5 = 231,500,000",killsHint:"Ballpark's fine, nobody's counting every kill",
+ beefOpts:["Nah, f drama","Yeah, but left it behind","Yeah, lemme explain"],
  seats:{gold:"Gold",purple:"Purple",blue:"Blue",white:"White"},
  conf:["Just looking 👀","Kinda doubt it","50/50","Pretty sure","Locked in 🔒"],slide:"Slide to pick 👉",
  ok:"OK",skip:"Skip",send:"Send it",enter:"press Enter ↵",
- e:{req:"Bruh, answer. Don't be a lazy bum",range:"Keep it between 80 and 600M",squadMax:"Can't be more than your total, chief",beefEmpty:"Spill it or pick another option",num:"Numbers only"},
+ e:{req:"Bruh, answer. Don't be a lazy bum",range:"Keep it between 80 and 600M",squadMax:"Can't be more than your total, chief",num:"Numbers only",beefEmpty:"Spill it or pick another option",crewEmpty:"Drop the code word, your crew needs it",rejoinEmpty:"Who or which team? Spill it"},
  sending:"Sending…",weak:"Signal's weak. Keep this open, it'll go through",fail:"Didn't go through. Try again?",retry:"Try again",
- done:"Got it 🙌",doneSub:"We'll hit you up soon. See you on 1053.",doneNote:"(Send Lea a voice memo on Discord. Don't ask.)"},
+ done:"Got it 🙌",doneSub:"We'll hit you up soon. See you on 1053.",doneNote:"New side quest unlocked: voice memo Lea on Discord. Don't ask. Just do it."},
 ko:{title:"1053 서버 이전",back:"뒤로",pick:"언어 선택",
- q:{nickname:"게임 닉네임 뭐야?",server:"어느 서버에서 와?",seat:"좌석 색깔은?",total:"총 영웅 전투력은?",squad:"1부대 전투력은?",kills:"킬 수는?",conf:"1053으로 넘어올 확률은?",beef:"누구랑 아니면 어떤 서버랑 트러블 있어?",comment:"더 하고 싶은 말 있어?"},
- ph:{nickname:"여기 입력…",server:"예: 812",total:"예: 231.5",squad:"예: 45.2",kills:"예: 1,250,000",beef:"누구랑 뭐 때문인지, 짧게",comment:"선택 사항, 편하게 적어줘"},
- milHint:"백만 단위: 231.5 = 231,500,000",killsHint:"대충 적어도 돼, 아무도 하나하나 안 세",beefOpts:["없어, 드라마 극혐", "있었는데 다 털었어", "있어, 설명할게"],
+ q:{nickname:"게임 닉네임 뭐야?",server:"어느 서버에서 와?",crew:"크루랑 같이 와?",rejoin:"1053에 있는 친구나 연맹에 다시 합류해?",seat:"좌석 색깔은?",total:"총 영웅 전투력은?",squad:"1부대 전투력은?",kills:"킬 수는?",conf:"1053으로 넘어올 확률은?",beef:"누구랑 아니면 어떤 서버랑 트러블 있어?",comment:"더 하고 싶은 말 있어?"},
+ ph:{nickname:"여기 입력…",server:"예: 812",crewWord:"예: LMPR 또는 BANANA SQUAD",rejoin:"팀 이름이나 그 사람 닉네임",total:"예: 231.5",squad:"예: 45.2",kills:"예: 1,250,000",beef:"누구랑 뭐 때문인지, 짧게",comment:"선택 사항, 편하게 적어줘"},
+ crewOpts:["아니, 솔로야","응, 크루랑 같이"],crewWordQ:"크루 암호명은?",crewWordHint:"지금 연맹 이름을 쓰거나, 크루랑 단어 하나 정해. 다들 똑같이 적어야 해.",
+ crewSizeQ:"대충 몇 명이야? (선택)",crewSizeUnset:"알면 밀어줘 👉",crewSizeVal:"약 {n}명",
+ rejoinOpts:["아니","응"],rejoinQ:"어느 팀이나 누구한테 합류해?",
+ milHint:"백만 단위: 231.5 = 231,500,000",killsHint:"대충 적어도 돼, 아무도 하나하나 안 세",
+ beefOpts:["없어, 드라마 극혐","있었는데 다 털었어","있어, 설명할게"],
  seats:{gold:"골드",purple:"보라",blue:"파랑",white:"흰색"},
  conf:["그냥 구경 중 👀","글쎄…","반반","거의 확정","무조건 간다 🔒"],slide:"밀어서 선택 👉",
  ok:"확인",skip:"건너뛰기",send:"보내기",enter:"Enter ↵ 누르기",
- e:{req:"야, 답해. 게으름 피우지 마",range:"80~600 사이로 입력해줘",squadMax:"총 전투력보다 클 수는 없지, 대장",beefEmpty:"썰 풀든지 다른 거 골라",num:"숫자만 입력해줘"},
+ e:{req:"야, 답해. 게으름 피우지 마",range:"80~600 사이로 입력해줘",squadMax:"총 전투력보다 클 수는 없지, 대장",num:"숫자만 입력해줘",beefEmpty:"썰 풀든지 다른 거 골라",crewEmpty:"암호명 적어줘, 크루가 필요해",rejoinEmpty:"누구야, 아니면 어느 팀? 말해줘"},
  sending:"보내는 중…",weak:"신호가 약해. 창 닫지 마, 곧 전송돼",fail:"전송 실패. 다시 해볼래?",retry:"다시 시도",
- done:"접수 완료 🙌",doneSub:"곧 연락할게. 1053에서 보자!",doneNote:"(디스코드로 Lea한테 음성 메시지 보내. 묻지 말고.)"},
+ done:"접수 완료 🙌",doneSub:"곧 연락할게. 1053에서 보자!",doneNote:"새 사이드 퀘스트 해금: 디스코드에서 Lea한테 음성 메시지 보내기. 묻지 마. 그냥 해."},
 es:{title:"Transferencia a 1053",back:"Atrás",pick:"Elige tu idioma",
- q:{nickname:"¿Cuál es tu nick en el juego?",server:"¿De qué server vienes?",seat:"¿Color de tu asiento?",total:"¿Tu poder total de héroes?",squad:"¿Poder de tu 1er escuadrón?",kills:"¿Cuántas kills llevas?",conf:"¿Qué tan seguro estás de cambiarte a 1053?",beef:"¿Traes bronca con alguien o con algún server?",comment:"¿Algo más que debamos saber?"},
- ph:{nickname:"Escríbelo aquí…",server:"ej. 812",total:"ej. 231.5",squad:"ej. 45.2",kills:"ej. 1,250,000",beef:"Con quién y qué pasó, cortito",comment:"Opcional, échalo aquí"},
- milHint:"En millones: 231.5 = 231,500,000",killsHint:"Aproximado está bien, nadie cuenta cada kill",beefOpts:["Nel, cero drama", "Sí, pero ya quedó atrás", "Sí, déjame explicar"],
+ q:{nickname:"¿Cuál es tu nick en el juego?",server:"¿De qué server vienes?",crew:"¿Vienes con tu crew?",rejoin:"¿Vuelves con amigos o con una alianza en 1053?",seat:"¿Color de tu asiento?",total:"¿Tu poder total de héroes?",squad:"¿Poder de tu 1er escuadrón?",kills:"¿Cuántas kills llevas?",conf:"¿Qué tan seguro estás de cambiarte a 1053?",beef:"¿Traes bronca con alguien o con algún server?",comment:"¿Algo más que debamos saber?"},
+ ph:{nickname:"Escríbelo aquí…",server:"ej. 812",crewWord:"ej. LMPR o BANANA SQUAD",rejoin:"Nombre del equipo o su nick",total:"ej. 231.5",squad:"ej. 45.2",kills:"ej. 1,250,000",beef:"Con quién y qué pasó, cortito",comment:"Opcional, échalo aquí"},
+ crewOpts:["Nel, vengo solo","Sí, con mi crew"],crewWordQ:"¿Palabra clave de tu crew?",crewWordHint:"Usa el nombre de tu alianza actual o pónganse de acuerdo en una palabra. Todos usan la misma.",
+ crewSizeQ:"¿Cuántos son, más o menos? (opcional)",crewSizeUnset:"Desliza si sabes 👉",crewSizeVal:"~{n} personas",
+ rejoinOpts:["Nel","Sí"],rejoinQ:"¿Con qué equipo o persona vuelves?",
+ milHint:"En millones: 231.5 = 231,500,000",killsHint:"Aproximado está bien, nadie cuenta cada kill",
+ beefOpts:["Nel, cero drama","Sí, pero ya quedó atrás","Sí, déjame explicar"],
  seats:{gold:"Oro",purple:"Morado",blue:"Azul",white:"Blanco"},
  conf:["Nomás viendo 👀","Lo dudo","50/50","Casi seguro","Ya es un hecho 🔒"],slide:"Desliza para elegir 👉",
  ok:"Va",skip:"Saltar",send:"Mandar",enter:"presiona Enter ↵",
- e:{req:"Bro, contesta. No seas flojo",range:"Entre 80 y 600M",squadMax:"No puede ser más que tu total, jefe",beefEmpty:"Suéltalo o elige otra opción",num:"Solo números"},
+ e:{req:"Bro, contesta. No seas flojo",range:"Entre 80 y 600M",squadMax:"No puede ser más que tu total, jefe",num:"Solo números",beefEmpty:"Suéltalo o elige otra opción",crewEmpty:"Pon la palabra clave, tu crew la necesita",rejoinEmpty:"¿Con quién o qué equipo? Suéltalo"},
  sending:"Enviando…",weak:"Señal débil. No cierres, ya casi sale",fail:"No se mandó. ¿Otra vez?",retry:"Reintentar",
- done:"¡Listo! 🙌",doneSub:"Te escribimos pronto. Nos vemos en 1053.",doneNote:"(Mándale un audio a Lea por Discord. No preguntes.)"},
+ done:"¡Listo! 🙌",doneSub:"Te escribimos pronto. Nos vemos en 1053.",doneNote:"Nueva misión secundaria desbloqueada: mándale un audio a Lea por Discord. No preguntes. Solo hazlo."},
 pt:{title:"Transferência pro 1053",back:"Voltar",pick:"Escolhe teu idioma",
- q:{nickname:"Qual teu nick no jogo?",server:"Tá vindo de qual server?",seat:"Cor da vaga?",total:"Teu poder total de heróis?",squad:"Poder do teu 1º esquadrão?",kills:"Quantas kills tu tem?",conf:"Quão certo tu tá de vir pro 1053?",beef:"Tem treta com alguém ou algum server?",comment:"Mais alguma coisa pra gente saber?"},
- ph:{nickname:"Digita aqui…",server:"ex: 812",total:"ex: 231,5",squad:"ex: 45,2",kills:"ex: 1.250.000",beef:"Com quem e o quê, resumido",comment:"Opcional, manda aí"},
- milHint:"Em milhões: 231,5 = 231.500.000",killsHint:"Pode ser aproximado, ninguém conta cada kill",beefOpts:["Nada, odeio drama", "Tive, mas já superei", "Tenho, deixa eu explicar"],
+ q:{nickname:"Qual teu nick no jogo?",server:"Tá vindo de qual server?",crew:"Tá vindo com a tua crew?",rejoin:"Tá voltando pra amigos ou uma aliança no 1053?",seat:"Cor da vaga?",total:"Teu poder total de heróis?",squad:"Poder do teu 1º esquadrão?",kills:"Quantas kills tu tem?",conf:"Quão certo tu tá de vir pro 1053?",beef:"Tem treta com alguém ou algum server?",comment:"Mais alguma coisa pra gente saber?"},
+ ph:{nickname:"Digita aqui…",server:"ex: 812",crewWord:"ex: LMPR ou BANANA SQUAD",rejoin:"Nome do time ou nick da pessoa",total:"ex: 231,5",squad:"ex: 45,2",kills:"ex: 1.250.000",beef:"Com quem e o quê, resumido",comment:"Opcional, manda aí"},
+ crewOpts:["Não, tô solo","Sim, com a crew"],crewWordQ:"Palavra-código da crew?",crewWordHint:"Usa o nome da tua aliança atual ou combina uma palavra com a crew. Todo mundo usa a mesma.",
+ crewSizeQ:"Quantos vocês são, mais ou menos? (opcional)",crewSizeUnset:"Arrasta se souber 👉",crewSizeVal:"~{n} pessoas",
+ rejoinOpts:["Não","Sim"],rejoinQ:"Qual time ou pessoa?",
+ milHint:"Em milhões: 231,5 = 231.500.000",killsHint:"Pode ser aproximado, ninguém conta cada kill",
+ beefOpts:["Nada, odeio drama","Tive, mas já superei","Tenho, deixa eu explicar"],
  seats:{gold:"Ouro",purple:"Roxo",blue:"Azul",white:"Branco"},
  conf:["Só olhando 👀","Acho que não","50/50","Quase certeza","Fechou, tô dentro 🔒"],slide:"Arrasta pra escolher 👉",
  ok:"Beleza",skip:"Pular",send:"Enviar",enter:"aperta Enter ↵",
- e:{req:"Mano, responde. Deixa de preguiça",range:"Entre 80 e 600M",squadMax:"Não pode ser maior que teu total, chefe",beefEmpty:"Conta aí ou escolhe outra opção",num:"Só números"},
+ e:{req:"Mano, responde. Deixa de preguiça",range:"Entre 80 e 600M",squadMax:"Não pode ser maior que teu total, chefe",num:"Só números",beefEmpty:"Conta aí ou escolhe outra opção",crewEmpty:"Coloca a palavra-código, a crew precisa",rejoinEmpty:"Quem ou qual time? Conta aí"},
  sending:"Enviando…",weak:"Sinal fraco. Não fecha, já vai",fail:"Não foi. Tenta de novo?",retry:"Tentar de novo",
- done:"Recebido! 🙌",doneSub:"Logo a gente te chama. Te vejo no 1053.",doneNote:"(Manda um áudio pra Lea no Discord. Não pergunta.)"},
+ done:"Recebido! 🙌",doneSub:"Logo a gente te chama. Te vejo no 1053.",doneNote:"Nova missão secundária desbloqueada: manda um áudio pra Lea no Discord. Não pergunta. Só faz."},
 zh:{title:"转服到 1053",back:"上一步",pick:"选择语言",
- q:{nickname:"你的游戏昵称是？",server:"你从哪个服过来？",seat:"席位颜色？",total:"你的英雄总战力？",squad:"第一编队战力？",kills:"击杀数？",conf:"转到 1053 的把握有多大？",beef:"跟谁或者哪个服有过节吗？",comment:"还有啥想说的？"},
- ph:{nickname:"在这儿输入…",server:"例：812",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"跟谁、啥事，简单说",comment:"选填，随便写"},
- milHint:"单位：百万（231.5 = 231,500,000）",killsHint:"填个大概就行，没人一个个数",beefOpts:["没有，懒得搞事", "有过，已经翻篇了", "有，我说说"],
+ q:{nickname:"你的游戏昵称是？",server:"你从哪个服过来？",crew:"你是跟团一起来的吗？",rejoin:"你是来 1053 投奔朋友或联盟的吗？",seat:"席位颜色？",total:"你的英雄总战力？",squad:"第一编队战力？",kills:"击杀数？",conf:"转到 1053 的把握有多大？",beef:"跟谁或者哪个服有过节吗？",comment:"还有啥想说的？"},
+ ph:{nickname:"在这儿输入…",server:"例：812",crewWord:"例：LMPR 或 BANANA SQUAD",rejoin:"联盟名或对方昵称",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"跟谁、啥事，简单说",comment:"选填，随便写"},
+ crewOpts:["不是，我单飞","是，跟我的团"],crewWordQ:"团队暗号？",crewWordHint:"用你现在的联盟名，或者跟团队商量一个词。大家都填同一个。",
+ crewSizeQ:"大概多少人？（选填）",crewSizeUnset:"知道就拖一下 👉",crewSizeVal:"约 {n} 人",
+ rejoinOpts:["不是","是"],rejoinQ:"投奔哪个联盟或谁？",
+ milHint:"单位：百万（231.5 = 231,500,000）",killsHint:"填个大概就行，没人一个个数",
+ beefOpts:["没有，懒得搞事","有过，已经翻篇了","有，我说说"],
  seats:{gold:"金色",purple:"紫色",blue:"蓝色",white:"白色"},
  conf:["随便看看 👀","不太可能","五五开","八九不离十","稳了，必来 🔒"],slide:"拖动选择 👉",
  ok:"确定",skip:"跳过",send:"提交",enter:"按 Enter ↵",
- e:{req:"兄弟，回答一下，别偷懒",range:"请填 80 到 600 之间",squadMax:"不能超过总战力啊，老大",beefEmpty:"说说看，或者换个选项",num:"只能填数字"},
+ e:{req:"兄弟，回答一下，别偷懒",range:"请填 80 到 600 之间",squadMax:"不能超过总战力啊，老大",num:"只能填数字",beefEmpty:"说说看，或者换个选项",crewEmpty:"填一下暗号，团队要用",rejoinEmpty:"谁或者哪个联盟？说说"},
  sending:"提交中…",weak:"信号不太好，别关页面，马上就好",fail:"没提交成功，再试一次？",retry:"重试",
- done:"收到啦 🙌",doneSub:"我们很快联系你，1053 见！",doneNote:"（去 Discord 给 Lea 发条语音，别问为啥。）"},
+ done:"收到啦 🙌",doneSub:"我们很快联系你，1053 见！",doneNote:"新支线任务解锁：去 Discord 给 Lea 发条语音。别问，去做就完了。"},
 ja:{title:"1053への移籍",back:"戻る",pick:"言語を選んでね",
- q:{nickname:"ゲームのニックネームは？",server:"どのサーバーから来る？",seat:"シートの色は？",total:"ヒーロー総戦力は？",squad:"第1部隊の戦力は？",kills:"撃破数は？",conf:"1053に移る気、どれくらい？",beef:"誰かとか、どこかのサーバーと揉めてる？",comment:"他に伝えたいことある？"},
- ph:{nickname:"ここに入力…",server:"例：812",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"誰と何があったか、短めに",comment:"任意、気軽にどうぞ"},
- milHint:"単位は百万（231.5 = 231,500,000）",killsHint:"だいたいでOK、誰も正確に数えてないし",beefOpts:["ないよ、ドラマは勘弁", "あったけど水に流した", "ある、説明する"],
+ q:{nickname:"ゲームのニックネームは？",server:"どのサーバーから来る？",crew:"クルーと一緒に来る？",rejoin:"1053の友達や同盟に合流する？",seat:"シートの色は？",total:"ヒーロー総戦力は？",squad:"第1部隊の戦力は？",kills:"撃破数は？",conf:"1053に移る気、どれくらい？",beef:"誰かとか、どこかのサーバーと揉めてる？",comment:"他に伝えたいことある？"},
+ ph:{nickname:"ここに入力…",server:"例：812",crewWord:"例：LMPR、BANANA SQUAD",rejoin:"チーム名か相手のニックネーム",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"誰と何があったか、短めに",comment:"任意、気軽にどうぞ"},
+ crewOpts:["いや、ソロ","うん、クルーと一緒"],crewWordQ:"クルーの合言葉は？",crewWordHint:"今の同盟名を使うか、クルーで1つ決めてね。みんな同じのを使って。",
+ crewSizeQ:"だいたい何人？（任意）",crewSizeUnset:"わかればスライド 👉",crewSizeVal:"約{n}人",
+ rejoinOpts:["しない","する"],rejoinQ:"どのチーム、または誰に合流する？",
+ milHint:"単位は百万（231.5 = 231,500,000）",killsHint:"だいたいでOK、誰も正確に数えてないし",
+ beefOpts:["ないよ、ドラマは勘弁","あったけど水に流した","ある、説明する"],
  seats:{gold:"ゴールド",purple:"パープル",blue:"ブルー",white:"ホワイト"},
  conf:["見てるだけ 👀","たぶん無理","五分五分","ほぼ確定","絶対行く 🔒"],slide:"スライドして選択 👉",
  ok:"OK",skip:"スキップ",send:"送信",enter:"Enterで次へ ↵",
- e:{req:"おい、答えて。サボんなって",range:"80〜600の間で入力してね",squadMax:"総戦力より大きいのはナシだよ、ボス",beefEmpty:"書くか、他を選んでね",num:"数字だけでお願い"},
+ e:{req:"おい、答えて。サボんなって",range:"80〜600の間で入力してね",squadMax:"総戦力より大きいのはナシだよ、ボス",num:"数字だけでお願い",beefEmpty:"書くか、他を選んでね",crewEmpty:"合言葉を入れて、クルーが使うから",rejoinEmpty:"誰、またはどのチーム？教えて"},
  sending:"送信中…",weak:"電波弱め。閉じないで、もうすぐ届くよ",fail:"送れなかった。もう一回？",retry:"再試行",
- done:"受け取ったよ 🙌",doneSub:"すぐ連絡するね。1053で会おう！",doneNote:"（DiscordでLeaにボイスメモ送ってね。理由は聞かないで。）"},
+ done:"受け取ったよ 🙌",doneSub:"すぐ連絡するね。1053で会おう！",doneNote:"新サイドクエスト解放：DiscordでLeaにボイスメモを送れ。理由は聞かないで。とにかくやって。"},
 ru:{title:"Переезд на 1053",back:"Назад",pick:"Выбери язык",
- q:{nickname:"Твой ник в игре?",server:"С какого ты сервера?",seat:"Цвет места?",total:"Общая мощь героев?",squad:"Мощь 1-го отряда?",kills:"Сколько киллов?",conf:"Насколько уверен, что переедешь на 1053?",beef:"Есть тёрки с кем-то или с каким-то сервером?",comment:"Что-то ещё нам стоит знать?"},
- ph:{nickname:"Пиши сюда…",server:"напр. 812",total:"напр. 231,5",squad:"напр. 45,2",kills:"напр. 1 250 000",beef:"С кем и что, коротко",comment:"Необязательно, пиши что хочешь"},
- milHint:"В миллионах: 231,5 = 231 500 000",killsHint:"Можно примерно, никто киллы поштучно не считает",beefOpts:["Не, драма не моё", "Были, но всё в прошлом", "Есть, щас объясню"],
+ q:{nickname:"Твой ник в игре?",server:"С какого ты сервера?",crew:"Едешь со своей бандой?",rejoin:"Едешь к друзьям или в альянс на 1053?",seat:"Цвет места?",total:"Общая мощь героев?",squad:"Мощь 1-го отряда?",kills:"Сколько киллов?",conf:"Насколько уверен, что переедешь на 1053?",beef:"Есть тёрки с кем-то или с каким-то сервером?",comment:"Что-то ещё нам стоит знать?"},
+ ph:{nickname:"Пиши сюда…",server:"напр. 812",crewWord:"напр. LMPR или BANANA SQUAD",rejoin:"Название команды или ник",total:"напр. 231,5",squad:"напр. 45,2",kills:"напр. 1 250 000",beef:"С кем и что, коротко",comment:"Необязательно, пиши что хочешь"},
+ crewOpts:["Не, я соло","Да, с бандой"],crewWordQ:"Кодовое слово банды?",crewWordHint:"Возьми название своего альянса или договоритесь о слове. Все пишут одно и то же.",
+ crewSizeQ:"Сколько вас примерно? (необязательно)",crewSizeUnset:"Двигай, если знаешь 👉",crewSizeVal:"~{n} чел.",
+ rejoinOpts:["Не","Да"],rejoinQ:"К какой команде или к кому?",
+ milHint:"В миллионах: 231,5 = 231 500 000",killsHint:"Можно примерно, никто киллы поштучно не считает",
+ beefOpts:["Не, драма не моё","Были, но всё в прошлом","Есть, щас объясню"],
  seats:{gold:"Золотое",purple:"Фиолетовое",blue:"Синее",white:"Белое"},
  conf:["Просто смотрю 👀","Вряд ли","50 на 50","Почти точно","Точно еду 🔒"],slide:"Двигай, чтобы выбрать 👉",
  ok:"Ок",skip:"Пропустить",send:"Отправить",enter:"жми Enter ↵",
- e:{req:"Бро, ответь. Не ленись",range:"От 80 до 600М",squadMax:"Не может быть больше общей мощи, шеф",beefEmpty:"Расскажи или выбери другой вариант",num:"Только цифры"},
+ e:{req:"Бро, ответь. Не ленись",range:"От 80 до 600М",squadMax:"Не может быть больше общей мощи, шеф",num:"Только цифры",beefEmpty:"Расскажи или выбери другой вариант",crewEmpty:"Впиши кодовое слово, банде оно нужно",rejoinEmpty:"К кому или в какую команду? Колись"},
  sending:"Отправляю…",weak:"Слабый сигнал. Не закрывай, щас уйдёт",fail:"Не отправилось. Ещё раз?",retry:"Повторить",
- done:"Принято 🙌",doneSub:"Скоро напишем. Увидимся на 1053!",doneNote:"(Скинь Lea голосовое в Discord. Не спрашивай.)"}
+ done:"Принято 🙌",doneSub:"Скоро напишем. Увидимся на 1053!",doneNote:"Новый сайд-квест: скинь Lea голосовое в Discord. Не спрашивай. Просто сделай."}
 };
 
-/* ---------------------------- parsing ---------------------------- */
-// Power in millions. Accepts 231.5 / 231,5 / 231.5M / 231500000 / 231,500,000 / 231.500.000
+/* ============================ HELPERS ============================ */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = (n, loc="en-US", d=0) => Number(n).toLocaleString(loc,{minimumFractionDigits:d,maximumFractionDigits:d});
+// Power typed in millions. Accepts 231.5 / 231,5 / 231.5M / 231500000 / 231,500,000 / 231.500.000
 function parseMil(raw){
   let s = String(raw||"").trim().replace(/\s+/g,"").replace(/[mм]$/i,"");
   if (!s) return null;
@@ -298,196 +337,256 @@ function parseInt0(raw, max){
   if (!isFinite(n) || n > max) return NaN;
   return n;
 }
-const fmt = (n, loc="en-US", d=0) => Number(n).toLocaleString(loc,{minimumFractionDigits:d,maximumFractionDigits:d});
+const TICK = `<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
 
-/* ---------------------------- form state ---------------------------- */
-const STEPS = [
-  {id:"nickname",type:"text",req:true},
-  {id:"server",type:"int",req:false},
-  {id:"seat",type:"seat",req:true},
-  {id:"total",type:"mil",req:true},
-  {id:"squad",type:"mil",req:true},
-  {id:"kills",type:"kills",req:true},
-  {id:"conf",type:"slider",req:true},
-  {id:"beef",type:"beef",req:false},
-  {id:"comment",type:"textarea",req:false}
-];
-const S = {lang:null, i:-1, dir:1, a:{nickname:"",server:"",seat:null,total:"",squad:"",kills:"",conf:null,beef:null,beefNote:"",comment:""}, sending:false, pending:null, docId:null};
-const $app = document.getElementById("app");
-const $top = document.getElementById("top");
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-
-/* ---------------------------- raccoon ---------------------------- */
+/* ============================ RACCOON ============================ */
 const PAL = {k:"#2B2B2B",g:"#8C8C8C",d:"#5C5C5C",w:"#F4F4F4"};
-const HEART = [".rr.rr.","rwrrrrr","rrrrrrr",".rrrrr.","..rrr..","...r..."];
-const HEART_SVG = (() => { const p={r:"#E0465A",w:"#FFFFFF"}; let o=""; HEART.forEach((r,y)=>[...r].forEach((c,x)=>{ if(p[c]) o+=`<rect x="${x}" y="${y}" width="1" height="1" fill="${p[c]}"/>`;})); return `<svg viewBox="0 0 7 6" shape-rendering="crispEdges" aria-hidden="true">${o}</svg>`; })();
-const BODY = [
-  "............kk..kk..",
-  "...........gggggggg.",
-  "..........gkkkgkkkg.",
-  "kk........gkwkgkwkgg",
-  "kkgg.....ggwwwwwwggk",
-  "..kkgg.gggggggggggg.",
-  "....kkgggggggggggg..",
-  "......gggggggggggg..",
-  "......dggggggggggd.."
-];
+const BODY = ["............kk..kk..","...........gggggggg.","..........gkkkgkkkg.","kk........gkwkgkwkgg","kkgg.....ggwwwwwwggk","..kkgg.gggggggggggg.","....kkgggggggggggg..","......gggggggggggg..","......dggggggggggd.."];
 const LEGS_A = ["......d.d.....d.d...",".....d...d...d...d.."];
 const LEGS_B = [".......dd.....dd....",".......dd.....dd...."];
-function rects(rows, y0){
-  let out = "";
-  rows.forEach((r, y) => [...r].forEach((c, x) => { if (PAL[c]) out += `<rect x="${x}" y="${y+y0}" width="1" height="1" fill="${PAL[c]}"/>`; }));
-  return out;
-}
-const COON_SVG = `<svg viewBox="0 0 20 11" shape-rendering="crispEdges" aria-hidden="true">${rects(BODY,0)}<g class="fA">${rects(LEGS_A,9)}</g><g class="fB">${rects(LEGS_B,9)}</g></svg>`;
-const SAUS = ["..rrrrrr..",".rRRRRRRr.","trRRRRRRrt",".rrrrrrrr."];
-const SAUS_SVG = (() => { const p={r:"#9C3F25",R:"#CF5E37",t:"#C9A27A"}; let o=""; SAUS.forEach((r,y)=>[...r].forEach((c,x)=>{ if(p[c]) o+=`<rect x="${x}" y="${y}" width="1" height="1" fill="${p[c]}"/>`;})); return `<svg viewBox="0 0 10 4" width="32" height="13" shape-rendering="crispEdges" aria-hidden="true">${o}</svg>`; })();
+const pix = (rows, pal, y0=0) => rows.map((r,y) => [...r].map((c,x) => pal[c] ? `<rect x="${x}" y="${y+y0}" width="1" height="1" fill="${pal[c]}"/>` : "").join("")).join("");
+const COON_SVG = `<svg viewBox="0 0 20 11" shape-rendering="crispEdges" aria-hidden="true">${pix(BODY,PAL)}<g class="fA">${pix(LEGS_A,PAL,9)}</g><g class="fB">${pix(LEGS_B,PAL,9)}</g></svg>`;
+const SAUS_SVG = `<svg viewBox="0 0 10 4" width="32" height="13" shape-rendering="crispEdges" aria-hidden="true">${pix(["..rrrrrr..",".rRRRRRRr.","trRRRRRRrt",".rrrrrrrr."],{r:"#9C3F25",R:"#CF5E37",t:"#C9A27A"})}</svg>`;
+const HEART_SVG = `<svg viewBox="0 0 7 6" shape-rendering="crispEdges" aria-hidden="true">${pix([".rr.rr.","rwrrrrr","rrrrrrr",".rrrrr.","..rrr..","...r..."],{r:"#E0465A",w:"#FFFFFF"})}</svg>`;
+
+/* ============================ FORM ============================ */
+const STEPS = [
+  {id:"nickname", type:"text"},
+  {id:"server",   type:"int",   skip:true},
+  {id:"crew",     type:"crew"},
+  {id:"rejoin",   type:"rejoin"},
+  {id:"seat",     type:"seat"},
+  {id:"total",    type:"mil"},
+  {id:"squad",    type:"mil"},
+  {id:"kills",    type:"kills"},
+  {id:"conf",     type:"slider"},
+  {id:"beef",     type:"beef",  skip:true},
+  {id:"comment",  type:"textarea", skip:true}
+];
+const S = {
+  lang:null, i:-1, dir:1, busy:false, sending:false, pending:null, docId:null,
+  a:{nickname:"",server:"",crew:null,crewWord:"",crewSize:null,rejoin:null,rejoinWho:"",seat:null,total:"",squad:"",kills:"",conf:null,beef:null,beefNote:"",comment:""}
+};
+const $app = document.getElementById("app");
+const $top = document.getElementById("top");
+const L = () => T[S.lang || "en"];
 
 let runTimer = null;
-function drawTop(p, finished){
-  if (!document.querySelector(".track")) {
+function drawTop(p, finished, showBack){
+  if (!$top.querySelector(".track")) {
     $top.className = "top";
     $top.innerHTML = `<div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100">${STEPS.map(() => `<span class="seg"></span>`).join("")}</div>
-      <div class="lane"><div class="heart">${HEART_SVG}</div><div class="coon">${COON_SVG}</div><div class="sausage">${SAUS_SVG}</div><div class="nom">nom</div></div>`;
+      <div class="lane"><div class="heart">${HEART_SVG}</div><div class="coon">${COON_SVG}</div><div class="sausage">${SAUS_SVG}</div><div class="nom">nom</div></div>
+      <div class="backrow"></div>`;
   }
   $top.style.setProperty("--p", p);
   $top.querySelector(".track").setAttribute("aria-valuenow", Math.round(p*100));
   const doneN = Math.round(p * STEPS.length);
-  $top.querySelectorAll(".seg").forEach((el, k) => { el.classList.toggle("done", k < doneN); el.classList.toggle("cur", k === doneN && !finished); });
+  $top.querySelectorAll(".seg").forEach((el,k) => { el.classList.toggle("done", k < doneN); el.classList.toggle("cur", k === doneN && !finished); });
   const coon = $top.querySelector(".coon");
-  coon.classList.add("run");
-  clearTimeout(runTimer);
-  runTimer = setTimeout(() => coon.classList.remove("run"), 720);
+  coon.classList.add("run"); clearTimeout(runTimer); runTimer = setTimeout(() => coon.classList.remove("run"), 720);
   $top.querySelector(".sausage").classList.toggle("gone", !!finished);
   $top.querySelector(".nom").classList.toggle("on", !!finished);
   $top.querySelector(".heart").classList.toggle("on", !!finished);
+  const row = $top.querySelector(".backrow");
+  row.innerHTML = showBack ? `<button class="backbtn" id="bk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>${esc(L().back)}</button>` : "";
+  const bk = row.querySelector("#bk"); if (bk) bk.onclick = () => go(S.i - 1, -1);
 }
 
-/* ---------------------------- form render ---------------------------- */
+function optBtn(attr, val, label, sel, extra=""){
+  return `<button class="opt ${sel?"sel":""}" ${attr}="${val}">${extra}${esc(label)}${TICK}</button>`;
+}
+
 function render(){
-  const L = S.lang ? T[S.lang] : T.en;
+  const t = L();
   document.documentElement.lang = S.lang || "en";
+  const anim = S.dir < 0 ? "inb" : S.dir > 0 ? "in" : "";
+
   if (S.i === -1) {
-    drawTop(0);
-    $app.innerHTML = `<main><section class="step ${S.dir<0?"back":""}">
-      <h1>${esc(L.title)}</h1><p class="hint">🌐 ${S.lang ? esc(L.pick) : "Pick your language"}</p>
-      <div class="langs">${LANGS.map(([c,n]) => `<button class="opt ${S.lang===c?"sel":""}" data-lang="${c}">${n}</button>`).join("")}</div>
+    drawTop(0, false, false);
+    $app.innerHTML = `<main><section class="step ${anim}">
+      <h1>${esc(t.title)}</h1><p class="hint">🌐 ${esc(S.lang ? t.pick : "Pick your language")}</p>
+      <div class="langs">${LANGS.map(([c,n]) => optBtn("data-lang", c, n, S.lang===c)).join("")}</div>
     </section></main>`;
-    $app.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => { S.lang = b.dataset.lang; go(0, 1); });
+    $app.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => pickThen(b, () => { S.lang = b.dataset.lang; go(0, 1); }));
     return;
   }
   if (S.i >= STEPS.length) {
-    drawTop(1, true);
-    $app.innerHTML = `<main><section class="step done"><h1>${esc(L.done)}</h1><p class="hint">${esc(L.doneSub)}</p><p class="hint note">${esc(L.doneNote)}</p></section></main>`;
+    drawTop(1, true, false);
+    $app.innerHTML = `<main><section class="step done in"><h1>${esc(t.done)}</h1><p class="hint">${esc(t.doneSub)}</p><p class="hint note">${esc(t.doneNote)}</p></section></main>`;
     return;
   }
-  const st = STEPS[S.i], q = L.q[st.id], last = S.i === STEPS.length - 1;
-  drawTop(S.i / STEPS.length);
-  let body = "";
-  if (st.type === "text") body = `<div class="field"><input class="inp" id="v" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(L.ph.nickname)}" value="${esc(S.a.nickname)}"></div>`;
-  if (st.type === "int") body = `<div class="field"><input class="inp" id="v" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="${esc(L.ph.server)}" value="${esc(S.a.server)}"></div>`;
-  if (st.type === "mil") body = `<div class="field"><input class="inp has-suffix" id="v" inputmode="decimal" maxlength="14" autocomplete="off" placeholder="${esc(L.ph[st.id])}" value="${esc(S.a[st.id])}"><span class="suffix">M</span></div><p class="hint">${esc(L.milHint)}</p><div class="preview" id="pv"></div>`;
-  if (st.type === "kills") body = `<div class="field"><input class="inp" id="v" inputmode="numeric" maxlength="17" autocomplete="off" placeholder="${esc(L.ph.kills)}" value="${esc(S.a.kills)}"></div><p class="hint">${esc(L.killsHint)}</p><div class="preview" id="pv"></div>`;
-  if (st.type === "seat") body = `<div class="seats">${SEATS.map(s => `<button class="opt ${S.a.seat===s?"sel":""}" data-seat="${s}"><span class="sw ${s}"></span>${esc(L.seats[s])}</button>`).join("")}</div>`;
+
+  const st = STEPS[S.i], a = S.a, last = S.i === STEPS.length - 1;
+  drawTop(S.i / STEPS.length, false, true);
+  let body = "", showOk = true;
+
+  if (st.type === "text") body = `<div class="field"><input class="inp" id="v" data-k="nickname" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(t.ph.nickname)}" value="${esc(a.nickname)}"></div>`;
+  if (st.type === "int") body = `<div class="field"><input class="inp" id="v" data-k="server" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="${esc(t.ph.server)}" value="${esc(a.server)}"></div>`;
+  if (st.type === "crew") {
+    body = `<div class="opts">${optBtn("data-crew","solo",t.crewOpts[0],a.crew==="solo")}${optBtn("data-crew","crew",t.crewOpts[1],a.crew==="crew")}</div>`;
+    if (a.crew === "crew") {
+      const set = a.crewSize != null;
+      body += `<h2 class="sub">${esc(t.crewWordQ)}</h2><p class="hint">${esc(t.crewWordHint)}</p>
+        <div class="field"><input class="inp small" id="v" data-k="crewWord" maxlength="40" autocomplete="off" spellcheck="false" placeholder="${esc(t.ph.crewWord)}" value="${esc(a.crewWord)}"></div>
+        <h2 class="sub">${esc(t.crewSizeQ)}</h2>
+        <div class="conf" style="margin-top:8px"><div class="conf-label small ${set?"":"unset"}" id="csl">${esc(set ? t.crewSizeVal.replace("{n}", a.crewSize) : t.crewSizeUnset)}</div>
+        <input type="range" id="cs" min="1" max="100" step="1" value="${set ? a.crewSize : 10}" class="${set?"":"unset"}" aria-label="${esc(t.crewSizeQ)}">
+        <div class="ticks"><span>1</span><span>50</span><span>100</span></div></div>`;
+    } else showOk = false;
+  }
+  if (st.type === "rejoin") {
+    body = `<div class="opts">${optBtn("data-rejoin","no",t.rejoinOpts[0],a.rejoin==="no")}${optBtn("data-rejoin","yes",t.rejoinOpts[1],a.rejoin==="yes")}</div>`;
+    if (a.rejoin === "yes") body += `<h2 class="sub">${esc(t.rejoinQ)}</h2><div class="field"><input class="inp small" id="v" data-k="rejoinWho" maxlength="80" autocomplete="off" spellcheck="false" placeholder="${esc(t.ph.rejoin)}" value="${esc(a.rejoinWho)}"></div>`;
+    else showOk = false;
+  }
+  if (st.type === "seat") { body = `<div class="opts">${SEATS.map(s => optBtn("data-seat", s, t.seats[s], a.seat===s, `<span class="sw ${s}"></span>`)).join("")}</div>`; showOk = false; }
+  if (st.type === "mil") body = `<div class="field"><input class="inp has-suffix" id="v" data-k="${st.id}" inputmode="decimal" maxlength="14" autocomplete="off" placeholder="${esc(t.ph[st.id])}" value="${esc(a[st.id])}"><span class="suffix">M</span></div><p class="hint">${esc(t.milHint)}</p><div class="preview" id="pv"></div>`;
+  if (st.type === "kills") body = `<div class="field"><input class="inp" id="v" data-k="kills" inputmode="numeric" maxlength="17" autocomplete="off" placeholder="${esc(t.ph.kills)}" value="${esc(a.kills)}"></div><p class="hint">${esc(t.killsHint)}</p><div class="preview" id="pv"></div>`;
   if (st.type === "slider") {
-    const set = S.a.conf != null;
-    body = `<div class="conf"><div class="conf-label ${set?"":"unset"}" id="cl">${esc(set ? L.conf[S.a.conf-1] : L.slide)}</div>
-      <input type="range" id="v" min="1" max="5" step="1" value="${set?S.a.conf:3}" class="${set?"":"unset"}" aria-label="${esc(q)}">
+    const set = a.conf != null;
+    body = `<div class="conf"><div class="conf-label ${set?"":"unset"}" id="cl">${esc(set ? t.conf[a.conf-1] : t.slide)}</div>
+      <input type="range" id="sl" min="1" max="5" step="1" value="${set?a.conf:3}" class="${set?"":"unset"}" aria-label="${esc(t.q.conf)}">
       <div class="ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>`;
   }
-  if (st.type === "beef") body = `<div class="seats">${BEEF.map((b,k) => `<button class="opt ${S.a.beef===b?"sel":""}" data-beef="${b}">${esc(L.beefOpts[k])}</button>`).join("")}</div>
-    ${S.a.beef === "explain" ? `<div class="field"><textarea class="inp" id="v" maxlength="1000" placeholder="${esc(L.ph.beef)}">${esc(S.a.beefNote)}</textarea></div>` : ""}`;
-  if (st.type === "textarea") body = `<div class="field"><textarea class="inp" id="v" maxlength="1000" placeholder="${esc(L.ph.comment)}">${esc(S.a.comment)}</textarea></div>`;
+  if (st.type === "beef") {
+    body = `<div class="opts">${BEEF.map((b,k) => optBtn("data-beef", b, t.beefOpts[k], a.beef===b)).join("")}</div>`;
+    if (a.beef === "explain") body += `<div class="field"><textarea class="inp" id="v" data-k="beefNote" maxlength="1000" placeholder="${esc(t.ph.beef)}">${esc(a.beefNote)}</textarea></div>`;
+    else showOk = false;
+  }
+  if (st.type === "textarea") body = `<div class="field"><textarea class="inp" id="v" data-k="comment" maxlength="1000" placeholder="${esc(t.ph.comment)}">${esc(a.comment)}</textarea></div>`;
 
-  const showOk = st.type !== "seat" && !(st.type === "beef" && S.a.beef !== "explain");
-  $app.innerHTML = `<main><section class="step ${S.dir<0?"back":""}">
+  const isArea = st.type === "textarea" || st.type === "beef";
+  $app.innerHTML = `<main><section class="step ${anim}" id="stp">
     <div class="num">${S.i+1} / ${STEPS.length}</div>
-    <h1 id="qh">${esc(q)}</h1>
+    <h1 id="qh">${esc(t.q[st.id])}</h1>
     ${body}
     <div class="err" id="er" role="alert"></div>
     <div class="actions">
-      ${showOk ? `<button class="btn" id="ok">${esc(last ? L.send : L.ok)}</button>` : ""}
-      ${!st.req && !last ? `<button class="link" id="sk">${esc(L.skip)}</button>` : ""}
-      ${showOk && st.type!=="textarea" && st.type!=="beef" ? `<span class="enter">${esc(L.enter)}</span>` : ""}
+      ${showOk ? `<button class="btn" id="ok">${esc(last ? t.send : t.ok)}</button>` : ""}
+      ${st.skip && !last ? `<button class="link" id="sk">${esc(t.skip)}</button>` : ""}
+      ${showOk && !isArea ? `<span class="enter">${esc(t.enter)}</span>` : ""}
     </div>
-  </section></main>
-  <button class="backbtn" id="bk"><svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>${esc(L.back)}</button>`;
+  </section></main>`;
+  wire(st);
+}
 
-  const v = document.getElementById("v"), er = document.getElementById("er"), pv = document.getElementById("pv");
-  const loc = LOCALE[S.lang];
+function wire(st){
+  const t = L(), a = S.a, loc = LOCALE[S.lang];
+  const er = document.getElementById("er");
+  const v = document.getElementById("v"), pv = document.getElementById("pv");
+
   const updPreview = () => {
-    if (!pv) return;
+    if (!pv || !v) return;
     if (st.type === "mil") { const n = parseMil(v.value); pv.textContent = (n != null && !isNaN(n) && n > 0) ? "= " + fmt(n*1e6, loc) : ""; }
     if (st.type === "kills") { const n = parseInt0(v.value, 1e12); pv.textContent = (n != null && !isNaN(n)) ? "= " + fmt(n, loc) : ""; }
   };
-  if (v && st.type !== "slider") {
-    const key = st.type === "beef" ? "beefNote" : st.id;
-    v.addEventListener("input", () => { S.a[key] = v.value; er.textContent = ""; updPreview(); });
-    v.addEventListener("keydown", e => {
-      if (e.key === "Enter" && ((st.type !== "textarea" && st.type !== "beef") || e.metaKey || e.ctrlKey)) { e.preventDefault(); next(); }
-    });
+  if (v) {
+    v.addEventListener("input", () => { a[v.dataset.k] = v.value; er.textContent = ""; updPreview(); });
+    v.addEventListener("keydown", e => { if (e.key === "Enter" && (v.tagName !== "TEXTAREA" || e.metaKey || e.ctrlKey)) { e.preventDefault(); next(); } });
     updPreview();
-    setTimeout(() => { try { v.focus({preventScroll:true}); } catch(_){} }, 60);
+    setTimeout(() => { try { v.focus({preventScroll:true}); } catch(_){} }, 80);
   }
-  if (st.type === "slider") {
+
+  const sl = document.getElementById("sl");
+  if (sl) {
     const cl = document.getElementById("cl");
-    const setConf = () => { S.a.conf = Number(v.value); v.classList.remove("unset"); cl.classList.remove("unset"); cl.textContent = L.conf[S.a.conf-1]; er.textContent = ""; };
-    v.addEventListener("input", setConf);
-    v.addEventListener("change", setConf);
-    v.addEventListener("pointerup", setConf);
-    v.addEventListener("keyup", e => { if (e.key !== "Enter" && e.key !== "Tab") setConf(); });
-    v.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); next(); } });
+    const set = () => { a.conf = Number(sl.value); sl.classList.remove("unset"); cl.classList.remove("unset"); cl.textContent = t.conf[a.conf-1]; er.textContent = ""; };
+    ["input","change","pointerup"].forEach(ev => sl.addEventListener(ev, set));
+    sl.addEventListener("keyup", e => { if (e.key !== "Enter" && e.key !== "Tab") set(); });
+    sl.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); next(); } });
   }
-  $app.querySelectorAll("[data-seat]").forEach(b => b.onclick = () => {
-    S.a.seat = b.dataset.seat;
-    $app.querySelectorAll("[data-seat]").forEach(x => x.classList.toggle("sel", x === b));
-    setTimeout(() => go(S.i + 1, 1), 220);
+  const cs = document.getElementById("cs");
+  if (cs) {
+    const csl = document.getElementById("csl");
+    const set = () => { a.crewSize = Number(cs.value); cs.classList.remove("unset"); csl.classList.remove("unset"); csl.textContent = t.crewSizeVal.replace("{n}", a.crewSize); };
+    ["input","change","pointerup"].forEach(ev => cs.addEventListener(ev, set));
+  }
+
+  // choice buttons: blink + tick, then move on (or open the extra fields)
+  $app.querySelectorAll("[data-seat]").forEach(b => b.onclick = () => { a.seat = b.dataset.seat; pickThen(b, () => go(S.i + 1, 1)); });
+  $app.querySelectorAll("[data-crew]").forEach(b => b.onclick = () => {
+    if (S.busy) return;
+    a.crew = b.dataset.crew;
+    if (a.crew === "crew") { S.dir = 0; render(); return; }
+    a.crewWord = ""; a.crewSize = null; pickThen(b, () => go(S.i + 1, 1));
+  });
+  $app.querySelectorAll("[data-rejoin]").forEach(b => b.onclick = () => {
+    if (S.busy) return;
+    a.rejoin = b.dataset.rejoin;
+    if (a.rejoin === "yes") { S.dir = 0; render(); return; }
+    a.rejoinWho = ""; pickThen(b, () => go(S.i + 1, 1));
   });
   $app.querySelectorAll("[data-beef]").forEach(b => b.onclick = () => {
-    S.a.beef = b.dataset.beef;
-    if (S.a.beef === "explain") { render(); return; }
-    S.a.beefNote = "";
-    $app.querySelectorAll("[data-beef]").forEach(x => x.classList.toggle("sel", x === b));
-    setTimeout(() => go(S.i + 1, 1), 220);
+    if (S.busy) return;
+    a.beef = b.dataset.beef;
+    if (a.beef === "explain") { S.dir = 0; render(); return; }
+    a.beefNote = ""; pickThen(b, () => go(S.i + 1, 1));
   });
+
   const ok = document.getElementById("ok"); if (ok) ok.onclick = next;
-  const sk = document.getElementById("sk"); if (sk) sk.onclick = () => { if (st.id === "beef") { S.a.beef = null; S.a.beefNote = ""; } else S.a[st.id] = ""; go(S.i + 1, 1); };
-  document.getElementById("bk").onclick = () => go(S.i - 1, -1);
+  const sk = document.getElementById("sk"); if (sk) sk.onclick = () => {
+    if (st.id === "beef") { a.beef = null; a.beefNote = ""; } else a[st.id] = "";
+    go(S.i + 1, 1);
+  };
+}
+
+function pickThen(btn, fn){
+  if (S.busy) return;
+  S.busy = true;
+  btn.parentElement.querySelectorAll(".opt").forEach(x => x.classList.toggle("sel", x === btn));
+  btn.classList.add("blink");
+  setTimeout(() => { S.busy = false; fn(); }, 420);
 }
 
 function validate(st){
-  const L = T[S.lang], a = S.a;
-  if (st.id === "nickname") return a.nickname.trim() ? null : L.e.req;
-  if (st.id === "server") { const n = parseInt0(a.server, 99999); if (n === null) return null; return (isNaN(n) || n < 1) ? L.e.num : null; }
-  if (st.id === "seat") return a.seat ? null : L.e.req;
-  if (st.id === "total") { const n = parseMil(a.total); if (n === null) return L.e.req; if (isNaN(n)) return L.e.num; return (n < 80 || n > 600) ? L.e.range : null; }
-  if (st.id === "squad") {
-    const n = parseMil(a.squad); if (n === null) return L.e.req; if (isNaN(n) || n <= 0) return L.e.num;
-    const t = parseMil(a.total); return (t != null && !isNaN(t) && n > t) ? L.e.squadMax : null;
+  const t = L(), a = S.a;
+  switch (st.id) {
+    case "nickname": return a.nickname.trim() ? null : t.e.req;
+    case "server": { const n = parseInt0(a.server, 99999); if (n === null) return null; return (isNaN(n) || n < 1) ? t.e.num : null; }
+    case "crew": if (!a.crew) return t.e.req; return (a.crew === "crew" && !a.crewWord.trim()) ? t.e.crewEmpty : null;
+    case "rejoin": if (!a.rejoin) return t.e.req; return (a.rejoin === "yes" && !a.rejoinWho.trim()) ? t.e.rejoinEmpty : null;
+    case "seat": return a.seat ? null : t.e.req;
+    case "total": { const n = parseMil(a.total); if (n === null) return t.e.req; if (isNaN(n)) return t.e.num; return (n < 80 || n > 600) ? t.e.range : null; }
+    case "squad": {
+      const n = parseMil(a.squad); if (n === null) return t.e.req; if (isNaN(n) || n <= 0) return t.e.num;
+      const tot = parseMil(a.total); return (tot != null && !isNaN(tot) && n > tot) ? t.e.squadMax : null;
+    }
+    case "kills": { const n = parseInt0(a.kills, 1e12); if (n === null) return t.e.req; return isNaN(n) ? t.e.num : null; }
+    case "conf": return a.conf == null ? t.e.req : null;
+    case "beef": return (a.beef === "explain" && !a.beefNote.trim()) ? t.e.beefEmpty : null;
+    default: return null;
   }
-  if (st.id === "kills") { const n = parseInt0(a.kills, 1e12); if (n === null) return L.e.req; return isNaN(n) ? L.e.num : null; }
-  if (st.id === "conf") return a.conf == null ? L.e.req : null;
-  if (st.id === "beef") return (a.beef === "explain" && !a.beefNote.trim()) ? L.e.beefEmpty : null;
-  return null;
+}
+function showErr(msg){
+  const er = document.getElementById("er"), stp = document.getElementById("stp");
+  if (!er) return;
+  er.className = "err"; er.textContent = msg;
+  if (stp) { stp.classList.remove("in","inb","shake"); void stp.offsetWidth; stp.classList.add("shake"); }
 }
 function next(){
-  if (S.sending) return;
+  if (S.sending || S.busy) return;
   const st = STEPS[S.i], err = validate(st);
-  if (err) { document.getElementById("er").textContent = err; return; }
+  if (err) { showErr(err); return; }
   if (S.i === STEPS.length - 1) submit(); else go(S.i + 1, 1);
 }
 function go(i, dir){
-  if (i < -1) return;
-  S.i = i; S.dir = dir; render();
-  window.scrollTo(0, 0);
+  if (i < -1 || S.busy) return;
+  const stp = document.querySelector(".step");
+  S.busy = true;
+  if (stp) stp.classList.add(dir < 0 ? "outb" : "out");
+  setTimeout(() => { S.busy = false; S.i = i; S.dir = dir; render(); window.scrollTo(0, 0); }, stp ? 160 : 0);
 }
 
-/* ---------------------------- submit ---------------------------- */
+/* ============================ SAVE ============================ */
 function buildData(){
   const a = S.a;
   return {
     nickname: a.nickname.trim().slice(0, 40),
     server: parseInt0(a.server, 99999),
+    crew: a.crew === "crew" ? a.crewWord.trim().slice(0, 40) : "",
+    crewSize: a.crew === "crew" ? a.crewSize : null,
+    rejoin: a.rejoin === "yes" ? a.rejoinWho.trim().slice(0, 80) : "",
     seat: a.seat,
     totalPower: parseMil(a.total),
     squadPower: parseMil(a.squad),
@@ -503,71 +602,76 @@ function saveDraft(id, data){ try { localStorage.setItem(DRAFT_KEY, JSON.stringi
 function clearDraft(){ try { localStorage.removeItem(DRAFT_KEY); } catch(_){} }
 
 async function submit(){
-  const L = T[S.lang];
+  const t = L();
+  for (let k = 0; k < STEPS.length; k++) {
+    const e = validate(STEPS[k]);
+    if (e) { S.i = k; S.dir = -1; render(); setTimeout(() => showErr(e), 0); return; }
+  }
   const ok = document.getElementById("ok"), er = document.getElementById("er");
-  if (!CONFIGURED) { er.textContent = "Setup not finished: Firebase config missing."; return; }
-  // re-check every step before sending
-  for (let k = 0; k < STEPS.length; k++) { const e = validate(STEPS[k]); if (e) { go(k, -1); setTimeout(() => { const x = document.getElementById("er"); if (x) x.textContent = e; }, 0); return; } }
-
-  S.sending = true; ok.disabled = true; ok.textContent = L.sending; er.textContent = "";
+  S.sending = true; ok.disabled = true; ok.textContent = t.sending; er.textContent = "";
   if (!S.pending) {
     const data = buildData();
     if (!S.docId) S.docId = doc(collection(db, COL)).id;
     saveDraft(S.docId, data);
     S.pending = setDoc(doc(db, COL, S.docId), {...data, createdAt: serverTimestamp()});
   }
-  const weakTimer = setTimeout(() => { if (S.sending) { er.style.color = "var(--ink-soft)"; er.textContent = L.weak; } }, 8000);
+  const weak = setTimeout(() => { if (S.sending) { er.className = "err info"; er.textContent = t.weak; } }, 8000);
   try {
     await S.pending;
-    clearTimeout(weakTimer); clearDraft();
+    clearTimeout(weak); clearDraft();
     S.sending = false; S.pending = null;
     go(STEPS.length, 1);
   } catch (e) {
-    clearTimeout(weakTimer);
+    clearTimeout(weak);
     S.sending = false; S.pending = null;
     console.error(e);
-    er.style.color = ""; er.textContent = L.fail + (e && e.code ? ` (${e.code})` : "");
-    ok.disabled = false; ok.textContent = L.retry;
+    showErr(t.fail + (e && e.code ? ` (${e.code})` : ""));
+    ok.disabled = false; ok.textContent = t.retry;
   }
 }
-
-// If a previous visit closed before the save was confirmed, resend it quietly with the same id.
+// A send cut off by closing the page is resent on the next visit, with the same id (no doubles).
 async function flushDraft(){
-  if (!CONFIGURED) return;
   let d = null; try { d = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch(_){}
   if (!d || !d.id || !d.data) return;
   try { await setDoc(doc(db, COL, d.id), {...d.data, createdAt: serverTimestamp()}); clearDraft(); }
-  catch (e) { if (e && e.code === "permission-denied") clearDraft(); /* already saved earlier: rules block overwrites */ }
+  catch (e) { if (e && e.code === "permission-denied") clearDraft(); }
 }
 
-/* =========================== BOARD =========================== */
-const CONF_EN = T.en.conf;
-const SEAT_EN = T.en.seats;
-const BEEF_EN = {none:"No beef",past:"Beef, left behind",explain:"Has beef"};
+/* ============================ BOARD ============================ */
+const CONF_EN = T.en.conf, SEAT_EN = T.en.seats;
+const BEEF_EN = {none:"No beef", past:"Beef, left behind", explain:"Has beef"};
 let rows = [], unsub = null;
 
-function toast(msg){ const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
-const keyOf = n => String(n||"").trim().toLowerCase().replace(/\s+/g," ");
+const P = m => m >= 1000 ? fmt(m/1000, "en-US", 2) + "G" : fmt(m, "en-US", 1) + "M";
+const pl = n => `${n} player${n===1?"":"s"}`;
+const keyOf = s => String(s||"").trim().toLowerCase().replace(/\s+/g," ");
 const ms = r => r.createdAt && r.createdAt.toMillis ? r.createdAt.toMillis() : 0;
 const isWarm = r => r.confidence === 4 || r.confidence === 5;
+function toast(msg){ const el = document.createElement("div"); el.className = "toast"; el.textContent = msg; document.body.appendChild(el); setTimeout(() => el.remove(), 2600); }
 
 function analyse(list){
-  // newest entry per nickname counts; older ones are marked duplicate
   const newest = new Map();
-  list.forEach(r => { const k = keyOf(r.nickname); const cur = newest.get(k); if (!cur || ms(r) > ms(cur)) newest.set(k, r); });
+  list.forEach(r => { const k = keyOf(r.nickname); const c = newest.get(k); if (!c || ms(r) > ms(c)) newest.set(k, r); });
   const out = list.map(r => ({...r, dupe: newest.get(keyOf(r.nickname)).id !== r.id}));
-  const sorter = (a, b) => (b.confidence||0) - (a.confidence||0) || (b.squadPower||0) - (a.squadPower||0) || ms(b) - ms(a);
-  const groups = SEATS.map(s => ({seat:s, items: out.filter(r => r.seat === s).sort((a,b) => (a.dupe - b.dupe) || sorter(a,b))}));
   const live = out.filter(r => !r.dupe);
+  const sorter = (x, y) => (y.confidence||0) - (x.confidence||0) || (y.squadPower||0) - (x.squadPower||0) || ms(y) - ms(x);
+  const groups = SEATS.map(s => ({seat:s, items: out.filter(r => r.seat === s).sort((x,y) => (x.dupe - y.dupe) || sorter(x,y))}));
   const sum = arr => Math.round(arr.reduce((t, r) => t + (r.totalPower||0), 0) * 10) / 10;
   const warm = live.filter(isWarm), cold = live.filter(r => !isWarm(r));
   const totals = {
-    all:{n:live.length, p:sum(live)},
-    warm:{n:warm.length, p:sum(warm)},
-    cold:{n:cold.length, p:sum(cold)},
-    seat:Object.fromEntries(SEATS.map(s => { const a = live.filter(r => r.seat === s); return [s, {n:a.length, p:sum(a)}]; }))
+    all:{n:live.length, p:sum(live)}, warm:{n:warm.length, p:sum(warm)}, cold:{n:cold.length, p:sum(cold)},
+    seat:Object.fromEntries(SEATS.map(s => { const x = live.filter(r => r.seat === s); return [s, {n:x.length, p:sum(x)}]; }))
   };
-  return {groups, totals, dupes: out.length - live.length};
+  const cm = new Map();
+  live.filter(r => r.crew).forEach(r => {
+    const k = keyOf(r.crew);
+    if (!cm.has(k)) cm.set(k, {name:r.crew.trim(), forms:0, applied:0, size:null, p:0});
+    const c = cm.get(k);
+    c.forms++; if (r.applied) c.applied++; c.p += r.totalPower||0;
+    if (r.crewSize != null) c.size = Math.max(c.size || 0, r.crewSize);
+  });
+  const crews = [...cm.values()].map(c => ({...c, p:Math.round(c.p*10)/10})).sort((x,y) => y.forms - x.forms || x.name.localeCompare(y.name));
+  return {groups, totals, crews, dupes: out.length - live.length};
 }
 
 function boardLogin(msg){
@@ -587,10 +691,9 @@ function boardLogin(msg){
 }
 
 function renderBoard(){
-  const {groups, totals, dupes} = analyse(rows);
-  const P = n => fmt(n, "en-US", 1) + "M";
-  const pl = n => `${n} player${n===1?"":"s"}`;
-  const tr = (label, t, sw) => `<div class="trow"><span>${sw ? `<span class="sw ${sw}"></span>` : ""}${label}</span><b>${pl(t.n)}, ${P(t.p)}</b></div>`;
+  const {groups, totals, crews, dupes} = analyse(rows);
+  const tr = (label, x, sw) => `<div class="trow"><span>${sw ? `<span class="sw ${sw}"></span>` : ""}${label}</span><b>${pl(x.n)}, ${P(x.p)}</b></div>`;
+  const crewRow = c => `<div class="trow"><span>${esc(c.name)}</span><b>${c.size ? `${c.applied}/${c.size}` : c.applied} applied, ${c.forms} form${c.forms===1?"":"s"}, ${P(c.p)}</b></div>`;
   $app.innerHTML = `<div class="board">
     <div class="bhead"><div><h1>Transfer board</h1><div class="bsub">${rows.length} application${rows.length===1?"":"s"}${dupes ? `, ${dupes} duplicate${dupes>1?"s":""} (not counted)` : ""}</div></div>
       <div class="bbtns"><button class="bbtn" id="csv">Export CSV</button><button class="bbtn ghost" id="lo">Log out</button></div></div>
@@ -598,16 +701,19 @@ function renderBoard(){
       <div class="totals"><h2>Power by confidence</h2>${tr("Confident (4–5)", totals.warm)}${tr("Hesitating (1–3)", totals.cold)}${tr("All", totals.all)}</div>
       <div class="totals"><h2>Power by seat</h2>${SEATS.map(s => tr(SEAT_EN[s], totals.seat[s], s)).join("")}</div>
     </div>
+    ${crews.length ? `<div class="totals crews"><h2>Crews</h2>${crews.map(crewRow).join("")}</div>` : ""}
     ${rows.length === 0 ? `<p class="empty">No applications yet. Share the form link to get the first ones in.</p>` : ""}
     ${groups.filter(g => g.items.length).map(g => `<section class="group">
-      <div class="ghead"><span class="sw ${g.seat}"></span>${SEAT_EN[g.seat]} <small>${pl(g.items.filter(r=>!r.dupe).length)}</small></div>
+      <div class="ghead"><span class="sw ${g.seat}"></span>${SEAT_EN[g.seat]} <small>${pl(g.items.filter(r => !r.dupe).length)}</small></div>
       ${g.items.map(r => `<div class="card ${r.dupe?"dupe":""}">
         <div class="ctop"><div><div class="cname">${esc(r.nickname)}</div>
           <div class="badges">
             ${r.server != null ? `<span class="badge">Server ${esc(r.server)}</span>` : ""}
-            <span class="badge ${isWarm(r)?"warm":""}">${r.confidence ? `${r.confidence}/5 ${esc(CONF_EN[r.confidence-1])}` : "Confidence skipped"}</span>
-            ${r.beef ? `<span class="badge ${r.beef==="explain"?"dup":""}">${BEEF_EN[r.beef]}</span>` : ""}
-            ${r.dupe ? `<span class="badge dup">Duplicate, older entry</span>` : ""}
+            <span class="badge ${isWarm(r)?"warm":""}">${r.confidence ? `${r.confidence}/5 ${esc(CONF_EN[r.confidence-1])}` : "Confidence –"}</span>
+            ${r.crew ? `<span class="badge">Crew: ${esc(r.crew)}${r.crewSize ? ` (~${esc(r.crewSize)})` : ""}</span>` : `<span class="badge">Solo</span>`}
+            ${r.rejoin ? `<span class="badge">Rejoining: ${esc(r.rejoin)}</span>` : ""}
+            ${r.beef ? `<span class="badge ${r.beef==="explain"?"red":""}">${BEEF_EN[r.beef]}</span>` : ""}
+            ${r.dupe ? `<span class="badge red">Duplicate, older entry</span>` : ""}
           </div></div>
           <button class="applied ${r.applied?"on":""}" data-id="${esc(r.id)}" data-v="${r.applied?1:0}" aria-pressed="${r.applied?"true":"false"}"><span class="box"></span>Applied</button>
         </div>
@@ -632,38 +738,39 @@ function renderBoard(){
 
 function csvCell(v){ const s = v == null ? "" : String(v); return /[",\n\r]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; }
 async function exportCsv(){
-  const {groups, totals} = analyse(rows);
-  const now = new Date();
-  const stamp = now.toISOString().slice(0,16).replace("T"," ");
-  const L = [];
-  L.push(["Transfer to 1053 export", stamp]);
-  L.push([]);
-  L.push(["Totals (duplicates not counted)","Players","Total hero power (M)"]);
-  L.push(["Confident (4-5)", totals.warm.n, totals.warm.p]);
-  L.push(["Hesitating (1-3)", totals.cold.n, totals.cold.p]);
-  SEATS.forEach(s => L.push([SEAT_EN[s] + " seats", totals.seat[s].n, totals.seat[s].p]));
-  L.push(["All", totals.all.n, totals.all.p]);
-  L.push([]);
-  L.push(["Nickname","Server","Seat","Total hero power (M)","1st squad power (M)","Kills","Confidence (1-5)","Confident or hesitating","Applied","Duplicate","Beef","Beef details","Comment","Submitted (UTC)"]);
-  groups.forEach(g => g.items.forEach(r => L.push([
+  const {groups, totals, crews} = analyse(rows);
+  const now = new Date(), stamp = now.toISOString().slice(0,16).replace("T"," ");
+  const R = [];
+  R.push(["Transfer to 1053 export", stamp], []);
+  R.push(["Totals (duplicates not counted)","Players","Total hero power (M)"]);
+  R.push(["Confident (4-5)", totals.warm.n, totals.warm.p]);
+  R.push(["Hesitating (1-3)", totals.cold.n, totals.cold.p]);
+  SEATS.forEach(s => R.push([SEAT_EN[s] + " seats", totals.seat[s].n, totals.seat[s].p]));
+  R.push(["All", totals.all.n, totals.all.p], []);
+  if (crews.length) {
+    R.push(["Crew","Applied","Crew size (stated)","Forms","Total hero power (M)"]);
+    crews.forEach(c => R.push([c.name, c.applied, c.size ?? "", c.forms, c.p]));
+    R.push([]);
+  }
+  R.push(["Nickname","Server","Seat","Total hero power (M)","1st squad power (M)","Kills","Confidence (1-5)","Confident or hesitating","Crew","Crew size","Rejoining","Applied","Duplicate","Beef","Beef details","Comment","Submitted (UTC)"]);
+  groups.forEach(g => g.items.forEach(r => R.push([
     r.nickname, r.server ?? "", SEAT_EN[r.seat], r.totalPower ?? "", r.squadPower ?? "", r.kills ?? "",
-    r.confidence ?? "", isWarm(r) ? "Confident" : "Hesitating", r.applied ? "Yes" : "No", r.dupe ? "Yes" : "No",
-    r.beef ? BEEF_EN[r.beef] : "", r.beefNote || "", r.comment || "", ms(r) ? new Date(ms(r)).toISOString().slice(0,16).replace("T"," ") : ""
+    r.confidence ?? "", isWarm(r) ? "Confident" : "Hesitating", r.crew || "Solo", r.crewSize ?? "", r.rejoin || "",
+    r.applied ? "Yes" : "No", r.dupe ? "Yes" : "No", r.beef ? BEEF_EN[r.beef] : "", r.beefNote || "", r.comment || "",
+    ms(r) ? new Date(ms(r)).toISOString().slice(0,16).replace("T"," ") : ""
   ])));
-  const text = "\uFEFF" + L.map(r => r.map(csvCell).join(",")).join("\r\n");
+  const text = "﻿" + R.map(r => r.map(csvCell).join(",")).join("\r\n");
   const name = `transfer-1053-${now.toISOString().slice(0,10)}.csv`;
   const file = new File([text], name, {type:"text/csv"});
-  try {
-    if (navigator.canShare && navigator.canShare({files:[file]})) { await navigator.share({files:[file], title:name}); return; }
-  } catch (e) { if (e && e.name === "AbortError") return; }
+  try { if (navigator.canShare && navigator.canShare({files:[file]})) { await navigator.share({files:[file], title:name}); return; } }
+  catch (e) { if (e && e.name === "AbortError") return; }
   const url = URL.createObjectURL(file);
-  const a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  const link = document.createElement("a"); link.href = url; link.download = name; document.body.appendChild(link); link.click(); link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 4000);
 }
 
 function startBoard(){
   document.title = "Transfer board";
-  if (!CONFIGURED) { $app.innerHTML = `<div class="login"><h1>Setup not finished</h1><p class="hint">Paste the Firebase config into index.html first.</p></div>`; return; }
   onAuthStateChanged(auth, user => {
     if (unsub) { unsub(); unsub = null; }
     if (!user) { boardLogin(); return; }
@@ -674,7 +781,7 @@ function startBoard(){
   });
 }
 
-/* ---------------------------- boot ---------------------------- */
+/* ============================ START ============================ */
 if (location.hash === "#board") startBoard();
 else { render(); flushDraft(); }
 window.addEventListener("hashchange", () => location.reload());
