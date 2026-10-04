@@ -162,9 +162,15 @@ input[type=range].unset::-moz-range-thumb{background:var(--ink-faint)}
 .badge{font-size:12px;font-weight:800;padding:3px 8px;border-radius:6px;background:var(--line);word-break:break-word}
 .badge.warm{background:var(--okbg);color:var(--ok)}
 .badge.red{background:var(--errbg);color:var(--err)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}
 .stat small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600}
-.stat b{font-size:16px;font-weight:800}
+.stat b{font-size:15px;font-weight:800;white-space:nowrap}
+.notebtn{margin-top:10px;display:inline-flex;align-items:center;gap:6px;background:transparent;border:0;padding:4px 0;font-weight:700;font-size:13px;color:var(--ink-soft)}
+.notebtn .dot{width:7px;height:7px;border-radius:50%;background:var(--ink)}
+.notebox{margin-top:8px}
+.notebox textarea{width:100%;min-height:76px;border:2px solid var(--line);border-radius:10px;background:var(--card);padding:10px 12px;font-size:15px;font-weight:600;line-height:1.4;resize:vertical;outline:none}
+.notebox textarea:focus{border-color:var(--ink)}
+.notebox .row{display:flex;gap:8px;margin-top:8px}
 .comment{margin-top:10px;font-size:14px;line-height:1.45;color:var(--ink-soft);white-space:pre-wrap;word-break:break-word;font-weight:500}
 .comment b{color:var(--ink)}
 .applied{flex:none;display:flex;align-items:center;gap:8px;background:transparent;border:2px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:800;font-size:13px}
@@ -212,101 +218,101 @@ const LANGS = [["en","English"],["ko","한국어"],["es","Español (MX)"],["pt",
 const LOCALE = {en:"en-US",ko:"ko-KR",es:"es-MX",pt:"pt-BR",zh:"zh-CN",ja:"ja-JP",ru:"ru-RU"};
 const T = {
 en:{title:"Transfer to 1053",back:"Back",pick:"Pick your language",
- q:{nickname:"What's your game nickname?",server:"What server you coming from?",crew:"Coming with a crew?",rejoin:"Rejoining friends or an alliance on 1053?",seat:"Seat color?",total:"Your total hero power?",squad:"Your 1st squad power?",kills:"Your kill count?",conf:"How sure are you about moving to 1053?",beef:"Got beef with anyone or any server?",comment:"Anything else we should know?"},
- ph:{nickname:"Type it here…",server:"e.g. 812",crewWord:"e.g. LMPR or BANANA SQUAD",rejoin:"Team name or their nickname",total:"e.g. 231.5",squad:"e.g. 45.2",kills:"e.g. 1,250,000",beef:"Who and what, keep it short",comment:"Optional, drop it here"},
+ q:{nickname:"What's your game nickname?",server:"What server you coming from?",crew:"Coming with a crew?",rejoin:"Rejoining friends or an alliance on 1053?",seat:"Seat color?",score:"What's your transfer score?",total:"Your total hero power?",squad:"Your 1st squad power?",kills:"Your kill count?",conf:"How sure are you about moving to 1053?",beef:"Got beef with anyone or any server?",comment:"Anything else we should know?"},
+ ph:{nickname:"Type it here…",server:"e.g. 812",crewWord:"e.g. LMPR or BANANA SQUAD",rejoin:"Team name or their nickname",score:"e.g. 961.0K or 5.70M",total:"e.g. 231.5",squad:"e.g. 45.2",kills:"e.g. 1,250,000",beef:"Who and what, keep it short",comment:"Optional, drop it here"},
  crewOpts:["Nah, I'm solo","Yeah, with my crew"],crewWordQ:"Crew code word?",crewWordHint:"Use your current alliance name, or pick a word and agree on it with your crew. Everyone uses the same one.",
  crewSizeQ:"How many of y'all, roughly? (optional)",crewSizeUnset:"Slide if you know 👉",crewSizeVal:"~{n} people",
  rejoinOpts:["Nope","Yeah"],rejoinQ:"Which team or person you rejoining?",
- milHint:"In millions: 231.5 = 231,500,000",killsHint:"Ballpark's fine, nobody's counting every kill",
+ scoreHint:"Find it in Transfer Surge › About Transfer Score. Type it like the game shows it.",milHint:"In millions: 231.5 = 231,500,000",killsHint:"Ballpark's fine, nobody's counting every kill",
  beefOpts:["Nah, f drama","Yeah, but left it behind","Yeah, lemme explain"],
  seats:{gold:"Gold",purple:"Purple",blue:"Blue",white:"White"},
  conf:["Just looking 👀","Kinda doubt it","50/50","Pretty sure","Locked in 🔒"],slide:"Slide to pick 👉",
  ok:"OK",skip:"Skip",send:"Send it",enter:"press Enter ↵",
- e:{req:"Bruh, answer. Don't be a lazy bum",range:"Keep it between 80 and 600M",squadMax:"Can't be more than your total, chief",num:"Numbers only",beefEmpty:"Spill it or pick another option",crewEmpty:"Drop the code word, your crew needs it",rejoinEmpty:"Who or which team? Spill it"},
+ e:{req:"Bruh, answer. Don't be a lazy bum",score:"Type it like the game does: 961K or 5.7M",range:"Keep it between 80 and 600M",squadMax:"Can't be more than your total, chief",num:"Numbers only",beefEmpty:"Spill it or pick another option",crewEmpty:"Drop the code word, your crew needs it",rejoinEmpty:"Who or which team? Spill it"},
  sending:"Sending…",weak:"Signal's weak. Keep this open, it'll go through",fail:"Didn't go through. Try again?",retry:"Try again",
  done:"Got it 🙌",doneSub:"We'll hit you up soon. See you on 1053.",doneNote:"New side quest unlocked: voice memo Lea on Discord. Don't ask. Just do it."},
 ko:{title:"1053 서버 이전",back:"뒤로",pick:"언어 선택",
- q:{nickname:"게임 닉네임 뭐야?",server:"어느 서버에서 와?",crew:"크루랑 같이 와?",rejoin:"1053에 있는 친구나 연맹에 다시 합류해?",seat:"좌석 색깔은?",total:"총 영웅 전투력은?",squad:"1부대 전투력은?",kills:"킬 수는?",conf:"1053으로 넘어올 확률은?",beef:"누구랑 아니면 어떤 서버랑 트러블 있어?",comment:"더 하고 싶은 말 있어?"},
- ph:{nickname:"여기 입력…",server:"예: 812",crewWord:"예: LMPR 또는 BANANA SQUAD",rejoin:"팀 이름이나 그 사람 닉네임",total:"예: 231.5",squad:"예: 45.2",kills:"예: 1,250,000",beef:"누구랑 뭐 때문인지, 짧게",comment:"선택 사항, 편하게 적어줘"},
+ q:{nickname:"게임 닉네임 뭐야?",server:"어느 서버에서 와?",crew:"크루랑 같이 와?",rejoin:"1053에 있는 친구나 연맹에 다시 합류해?",seat:"좌석 색깔은?",score:"이전 점수(Transfer Score)는?",total:"총 영웅 전투력은?",squad:"1부대 전투력은?",kills:"킬 수는?",conf:"1053으로 넘어올 확률은?",beef:"누구랑 아니면 어떤 서버랑 트러블 있어?",comment:"더 하고 싶은 말 있어?"},
+ ph:{nickname:"여기 입력…",server:"예: 812",crewWord:"예: LMPR 또는 BANANA SQUAD",rejoin:"팀 이름이나 그 사람 닉네임",score:"예: 961.0K 또는 5.70M",total:"예: 231.5",squad:"예: 45.2",kills:"예: 1,250,000",beef:"누구랑 뭐 때문인지, 짧게",comment:"선택 사항, 편하게 적어줘"},
  crewOpts:["아니, 솔로야","응, 크루랑 같이"],crewWordQ:"크루 암호명은?",crewWordHint:"지금 연맹 이름을 쓰거나, 크루랑 단어 하나 정해. 다들 똑같이 적어야 해.",
  crewSizeQ:"대충 몇 명이야? (선택)",crewSizeUnset:"알면 밀어줘 👉",crewSizeVal:"약 {n}명",
  rejoinOpts:["아니","응"],rejoinQ:"어느 팀이나 누구한테 합류해?",
- milHint:"백만 단위: 231.5 = 231,500,000",killsHint:"대충 적어도 돼, 아무도 하나하나 안 세",
+ scoreHint:"Transfer Surge › About Transfer Score에서 확인해. 게임에 나온 그대로 적어.",milHint:"백만 단위: 231.5 = 231,500,000",killsHint:"대충 적어도 돼, 아무도 하나하나 안 세",
  beefOpts:["없어, 드라마 극혐","있었는데 다 털었어","있어, 설명할게"],
  seats:{gold:"골드",purple:"보라",blue:"파랑",white:"흰색"},
  conf:["그냥 구경 중 👀","글쎄…","반반","거의 확정","무조건 간다 🔒"],slide:"밀어서 선택 👉",
  ok:"확인",skip:"건너뛰기",send:"보내기",enter:"Enter ↵ 누르기",
- e:{req:"야, 답해. 게으름 피우지 마",range:"80~600 사이로 입력해줘",squadMax:"총 전투력보다 클 수는 없지, 대장",num:"숫자만 입력해줘",beefEmpty:"썰 풀든지 다른 거 골라",crewEmpty:"암호명 적어줘, 크루가 필요해",rejoinEmpty:"누구야, 아니면 어느 팀? 말해줘"},
+ e:{req:"야, 답해. 게으름 피우지 마",score:"게임처럼 적어줘: 961K 또는 5.7M",range:"80~600 사이로 입력해줘",squadMax:"총 전투력보다 클 수는 없지, 대장",num:"숫자만 입력해줘",beefEmpty:"썰 풀든지 다른 거 골라",crewEmpty:"암호명 적어줘, 크루가 필요해",rejoinEmpty:"누구야, 아니면 어느 팀? 말해줘"},
  sending:"보내는 중…",weak:"신호가 약해. 창 닫지 마, 곧 전송돼",fail:"전송 실패. 다시 해볼래?",retry:"다시 시도",
  done:"접수 완료 🙌",doneSub:"곧 연락할게. 1053에서 보자!",doneNote:"새 사이드 퀘스트 해금: 디스코드에서 Lea한테 음성 메시지 보내기. 묻지 마. 그냥 해."},
 es:{title:"Transferencia a 1053",back:"Atrás",pick:"Elige tu idioma",
- q:{nickname:"¿Cuál es tu nick en el juego?",server:"¿De qué server vienes?",crew:"¿Vienes con tu crew?",rejoin:"¿Vuelves con amigos o con una alianza en 1053?",seat:"¿Color de tu asiento?",total:"¿Tu poder total de héroes?",squad:"¿Poder de tu 1er escuadrón?",kills:"¿Cuántas kills llevas?",conf:"¿Qué tan seguro estás de cambiarte a 1053?",beef:"¿Traes bronca con alguien o con algún server?",comment:"¿Algo más que debamos saber?"},
- ph:{nickname:"Escríbelo aquí…",server:"ej. 812",crewWord:"ej. LMPR o BANANA SQUAD",rejoin:"Nombre del equipo o su nick",total:"ej. 231.5",squad:"ej. 45.2",kills:"ej. 1,250,000",beef:"Con quién y qué pasó, cortito",comment:"Opcional, échalo aquí"},
+ q:{nickname:"¿Cuál es tu nick en el juego?",server:"¿De qué server vienes?",crew:"¿Vienes con tu crew?",rejoin:"¿Vuelves con amigos o con una alianza en 1053?",seat:"¿Color de tu asiento?",score:"¿Cuál es tu transfer score?",total:"¿Tu poder total de héroes?",squad:"¿Poder de tu 1er escuadrón?",kills:"¿Cuántas kills llevas?",conf:"¿Qué tan seguro estás de cambiarte a 1053?",beef:"¿Traes bronca con alguien o con algún server?",comment:"¿Algo más que debamos saber?"},
+ ph:{nickname:"Escríbelo aquí…",server:"ej. 812",crewWord:"ej. LMPR o BANANA SQUAD",rejoin:"Nombre del equipo o su nick",score:"ej. 961.0K o 5.70M",total:"ej. 231.5",squad:"ej. 45.2",kills:"ej. 1,250,000",beef:"Con quién y qué pasó, cortito",comment:"Opcional, échalo aquí"},
  crewOpts:["Nel, vengo solo","Sí, con mi crew"],crewWordQ:"¿Palabra clave de tu crew?",crewWordHint:"Usa el nombre de tu alianza actual o pónganse de acuerdo en una palabra. Todos usan la misma.",
  crewSizeQ:"¿Cuántos son, más o menos? (opcional)",crewSizeUnset:"Desliza si sabes 👉",crewSizeVal:"~{n} personas",
  rejoinOpts:["Nel","Sí"],rejoinQ:"¿Con qué equipo o persona vuelves?",
- milHint:"En millones: 231.5 = 231,500,000",killsHint:"Aproximado está bien, nadie cuenta cada kill",
+ scoreHint:"Lo ves en Transfer Surge › About Transfer Score. Escríbelo tal cual sale en el juego.",milHint:"En millones: 231.5 = 231,500,000",killsHint:"Aproximado está bien, nadie cuenta cada kill",
  beefOpts:["Nel, cero drama","Sí, pero ya quedó atrás","Sí, déjame explicar"],
  seats:{gold:"Oro",purple:"Morado",blue:"Azul",white:"Blanco"},
  conf:["Nomás viendo 👀","Lo dudo","50/50","Casi seguro","Ya es un hecho 🔒"],slide:"Desliza para elegir 👉",
  ok:"Va",skip:"Saltar",send:"Mandar",enter:"presiona Enter ↵",
- e:{req:"Bro, contesta. No seas flojo",range:"Entre 80 y 600M",squadMax:"No puede ser más que tu total, jefe",num:"Solo números",beefEmpty:"Suéltalo o elige otra opción",crewEmpty:"Pon la palabra clave, tu crew la necesita",rejoinEmpty:"¿Con quién o qué equipo? Suéltalo"},
+ e:{req:"Bro, contesta. No seas flojo",score:"Escríbelo como en el juego: 961K o 5.7M",range:"Entre 80 y 600M",squadMax:"No puede ser más que tu total, jefe",num:"Solo números",beefEmpty:"Suéltalo o elige otra opción",crewEmpty:"Pon la palabra clave, tu crew la necesita",rejoinEmpty:"¿Con quién o qué equipo? Suéltalo"},
  sending:"Enviando…",weak:"Señal débil. No cierres, ya casi sale",fail:"No se mandó. ¿Otra vez?",retry:"Reintentar",
  done:"¡Listo! 🙌",doneSub:"Te escribimos pronto. Nos vemos en 1053.",doneNote:"Nueva misión secundaria desbloqueada: mándale un audio a Lea por Discord. No preguntes. Solo hazlo."},
 pt:{title:"Transferência pro 1053",back:"Voltar",pick:"Escolhe teu idioma",
- q:{nickname:"Qual teu nick no jogo?",server:"Tá vindo de qual server?",crew:"Tá vindo com a tua crew?",rejoin:"Tá voltando pra amigos ou uma aliança no 1053?",seat:"Cor da vaga?",total:"Teu poder total de heróis?",squad:"Poder do teu 1º esquadrão?",kills:"Quantas kills tu tem?",conf:"Quão certo tu tá de vir pro 1053?",beef:"Tem treta com alguém ou algum server?",comment:"Mais alguma coisa pra gente saber?"},
- ph:{nickname:"Digita aqui…",server:"ex: 812",crewWord:"ex: LMPR ou BANANA SQUAD",rejoin:"Nome do time ou nick da pessoa",total:"ex: 231,5",squad:"ex: 45,2",kills:"ex: 1.250.000",beef:"Com quem e o quê, resumido",comment:"Opcional, manda aí"},
+ q:{nickname:"Qual teu nick no jogo?",server:"Tá vindo de qual server?",crew:"Tá vindo com a tua crew?",rejoin:"Tá voltando pra amigos ou uma aliança no 1053?",seat:"Cor da vaga?",score:"Qual teu transfer score?",total:"Teu poder total de heróis?",squad:"Poder do teu 1º esquadrão?",kills:"Quantas kills tu tem?",conf:"Quão certo tu tá de vir pro 1053?",beef:"Tem treta com alguém ou algum server?",comment:"Mais alguma coisa pra gente saber?"},
+ ph:{nickname:"Digita aqui…",server:"ex: 812",crewWord:"ex: LMPR ou BANANA SQUAD",rejoin:"Nome do time ou nick da pessoa",score:"ex: 961,0K ou 5,70M",total:"ex: 231,5",squad:"ex: 45,2",kills:"ex: 1.250.000",beef:"Com quem e o quê, resumido",comment:"Opcional, manda aí"},
  crewOpts:["Não, tô solo","Sim, com a crew"],crewWordQ:"Palavra-código da crew?",crewWordHint:"Usa o nome da tua aliança atual ou combina uma palavra com a crew. Todo mundo usa a mesma.",
  crewSizeQ:"Quantos vocês são, mais ou menos? (opcional)",crewSizeUnset:"Arrasta se souber 👉",crewSizeVal:"~{n} pessoas",
  rejoinOpts:["Não","Sim"],rejoinQ:"Qual time ou pessoa?",
- milHint:"Em milhões: 231,5 = 231.500.000",killsHint:"Pode ser aproximado, ninguém conta cada kill",
+ scoreHint:"Tá em Transfer Surge › About Transfer Score. Escreve igual aparece no jogo.",milHint:"Em milhões: 231,5 = 231.500.000",killsHint:"Pode ser aproximado, ninguém conta cada kill",
  beefOpts:["Nada, odeio drama","Tive, mas já superei","Tenho, deixa eu explicar"],
  seats:{gold:"Ouro",purple:"Roxo",blue:"Azul",white:"Branco"},
  conf:["Só olhando 👀","Acho que não","50/50","Quase certeza","Fechou, tô dentro 🔒"],slide:"Arrasta pra escolher 👉",
  ok:"Beleza",skip:"Pular",send:"Enviar",enter:"aperta Enter ↵",
- e:{req:"Mano, responde. Deixa de preguiça",range:"Entre 80 e 600M",squadMax:"Não pode ser maior que teu total, chefe",num:"Só números",beefEmpty:"Conta aí ou escolhe outra opção",crewEmpty:"Coloca a palavra-código, a crew precisa",rejoinEmpty:"Quem ou qual time? Conta aí"},
+ e:{req:"Mano, responde. Deixa de preguiça",score:"Escreve igual o jogo: 961K ou 5,7M",range:"Entre 80 e 600M",squadMax:"Não pode ser maior que teu total, chefe",num:"Só números",beefEmpty:"Conta aí ou escolhe outra opção",crewEmpty:"Coloca a palavra-código, a crew precisa",rejoinEmpty:"Quem ou qual time? Conta aí"},
  sending:"Enviando…",weak:"Sinal fraco. Não fecha, já vai",fail:"Não foi. Tenta de novo?",retry:"Tentar de novo",
  done:"Recebido! 🙌",doneSub:"Logo a gente te chama. Te vejo no 1053.",doneNote:"Nova missão secundária desbloqueada: manda um áudio pra Lea no Discord. Não pergunta. Só faz."},
 zh:{title:"转服到 1053",back:"上一步",pick:"选择语言",
- q:{nickname:"你的游戏昵称是？",server:"你从哪个服过来？",crew:"你是跟团一起来的吗？",rejoin:"你是来 1053 投奔朋友或联盟的吗？",seat:"席位颜色？",total:"你的英雄总战力？",squad:"第一编队战力？",kills:"击杀数？",conf:"转到 1053 的把握有多大？",beef:"跟谁或者哪个服有过节吗？",comment:"还有啥想说的？"},
- ph:{nickname:"在这儿输入…",server:"例：812",crewWord:"例：LMPR 或 BANANA SQUAD",rejoin:"联盟名或对方昵称",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"跟谁、啥事，简单说",comment:"选填，随便写"},
+ q:{nickname:"你的游戏昵称是？",server:"你从哪个服过来？",crew:"你是跟团一起来的吗？",rejoin:"你是来 1053 投奔朋友或联盟的吗？",seat:"席位颜色？",score:"你的转服分数（Transfer Score）是？",total:"你的英雄总战力？",squad:"第一编队战力？",kills:"击杀数？",conf:"转到 1053 的把握有多大？",beef:"跟谁或者哪个服有过节吗？",comment:"还有啥想说的？"},
+ ph:{nickname:"在这儿输入…",server:"例：812",crewWord:"例：LMPR 或 BANANA SQUAD",rejoin:"联盟名或对方昵称",score:"例：961.0K 或 5.70M",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"跟谁、啥事，简单说",comment:"选填，随便写"},
  crewOpts:["不是，我单飞","是，跟我的团"],crewWordQ:"团队暗号？",crewWordHint:"用你现在的联盟名，或者跟团队商量一个词。大家都填同一个。",
  crewSizeQ:"大概多少人？（选填）",crewSizeUnset:"知道就拖一下 👉",crewSizeVal:"约 {n} 人",
  rejoinOpts:["不是","是"],rejoinQ:"投奔哪个联盟或谁？",
- milHint:"单位：百万（231.5 = 231,500,000）",killsHint:"填个大概就行，没人一个个数",
+ scoreHint:"在 Transfer Surge › About Transfer Score 里看。照游戏里显示的填。",milHint:"单位：百万（231.5 = 231,500,000）",killsHint:"填个大概就行，没人一个个数",
  beefOpts:["没有，懒得搞事","有过，已经翻篇了","有，我说说"],
  seats:{gold:"金色",purple:"紫色",blue:"蓝色",white:"白色"},
  conf:["随便看看 👀","不太可能","五五开","八九不离十","稳了，必来 🔒"],slide:"拖动选择 👉",
  ok:"确定",skip:"跳过",send:"提交",enter:"按 Enter ↵",
- e:{req:"兄弟，回答一下，别偷懒",range:"请填 80 到 600 之间",squadMax:"不能超过总战力啊，老大",num:"只能填数字",beefEmpty:"说说看，或者换个选项",crewEmpty:"填一下暗号，团队要用",rejoinEmpty:"谁或者哪个联盟？说说"},
+ e:{req:"兄弟，回答一下，别偷懒",score:"照游戏里的格式填：961K 或 5.7M",range:"请填 80 到 600 之间",squadMax:"不能超过总战力啊，老大",num:"只能填数字",beefEmpty:"说说看，或者换个选项",crewEmpty:"填一下暗号，团队要用",rejoinEmpty:"谁或者哪个联盟？说说"},
  sending:"提交中…",weak:"信号不太好，别关页面，马上就好",fail:"没提交成功，再试一次？",retry:"重试",
  done:"收到啦 🙌",doneSub:"我们很快联系你，1053 见！",doneNote:"新支线任务解锁：去 Discord 给 Lea 发条语音。别问，去做就完了。"},
 ja:{title:"1053への移籍",back:"戻る",pick:"言語を選んでね",
- q:{nickname:"ゲームのニックネームは？",server:"どのサーバーから来る？",crew:"クルーと一緒に来る？",rejoin:"1053の友達や同盟に合流する？",seat:"シートの色は？",total:"ヒーロー総戦力は？",squad:"第1部隊の戦力は？",kills:"撃破数は？",conf:"1053に移る気、どれくらい？",beef:"誰かとか、どこかのサーバーと揉めてる？",comment:"他に伝えたいことある？"},
- ph:{nickname:"ここに入力…",server:"例：812",crewWord:"例：LMPR、BANANA SQUAD",rejoin:"チーム名か相手のニックネーム",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"誰と何があったか、短めに",comment:"任意、気軽にどうぞ"},
+ q:{nickname:"ゲームのニックネームは？",server:"どのサーバーから来る？",crew:"クルーと一緒に来る？",rejoin:"1053の友達や同盟に合流する？",seat:"シートの色は？",score:"転移スコア（Transfer Score）は？",total:"ヒーロー総戦力は？",squad:"第1部隊の戦力は？",kills:"撃破数は？",conf:"1053に移る気、どれくらい？",beef:"誰かとか、どこかのサーバーと揉めてる？",comment:"他に伝えたいことある？"},
+ ph:{nickname:"ここに入力…",server:"例：812",crewWord:"例：LMPR、BANANA SQUAD",rejoin:"チーム名か相手のニックネーム",score:"例：961.0K、5.70M",total:"例：231.5",squad:"例：45.2",kills:"例：1,250,000",beef:"誰と何があったか、短めに",comment:"任意、気軽にどうぞ"},
  crewOpts:["いや、ソロ","うん、クルーと一緒"],crewWordQ:"クルーの合言葉は？",crewWordHint:"今の同盟名を使うか、クルーで1つ決めてね。みんな同じのを使って。",
  crewSizeQ:"だいたい何人？（任意）",crewSizeUnset:"わかればスライド 👉",crewSizeVal:"約{n}人",
  rejoinOpts:["しない","する"],rejoinQ:"どのチーム、または誰に合流する？",
- milHint:"単位は百万（231.5 = 231,500,000）",killsHint:"だいたいでOK、誰も正確に数えてないし",
+ scoreHint:"Transfer Surge › About Transfer Scoreで確認できるよ。ゲームの表示どおりに入力してね。",milHint:"単位は百万（231.5 = 231,500,000）",killsHint:"だいたいでOK、誰も正確に数えてないし",
  beefOpts:["ないよ、ドラマは勘弁","あったけど水に流した","ある、説明する"],
  seats:{gold:"ゴールド",purple:"パープル",blue:"ブルー",white:"ホワイト"},
  conf:["見てるだけ 👀","たぶん無理","五分五分","ほぼ確定","絶対行く 🔒"],slide:"スライドして選択 👉",
  ok:"OK",skip:"スキップ",send:"送信",enter:"Enterで次へ ↵",
- e:{req:"おい、答えて。サボんなって",range:"80〜600の間で入力してね",squadMax:"総戦力より大きいのはナシだよ、ボス",num:"数字だけでお願い",beefEmpty:"書くか、他を選んでね",crewEmpty:"合言葉を入れて、クルーが使うから",rejoinEmpty:"誰、またはどのチーム？教えて"},
+ e:{req:"おい、答えて。サボんなって",score:"ゲームの表示どおりに：961K か 5.7M",range:"80〜600の間で入力してね",squadMax:"総戦力より大きいのはナシだよ、ボス",num:"数字だけでお願い",beefEmpty:"書くか、他を選んでね",crewEmpty:"合言葉を入れて、クルーが使うから",rejoinEmpty:"誰、またはどのチーム？教えて"},
  sending:"送信中…",weak:"電波弱め。閉じないで、もうすぐ届くよ",fail:"送れなかった。もう一回？",retry:"再試行",
  done:"受け取ったよ 🙌",doneSub:"すぐ連絡するね。1053で会おう！",doneNote:"新サイドクエスト解放：DiscordでLeaにボイスメモを送れ。理由は聞かないで。とにかくやって。"},
 ru:{title:"Переезд на 1053",back:"Назад",pick:"Выбери язык",
- q:{nickname:"Твой ник в игре?",server:"С какого ты сервера?",crew:"Едешь со своей бандой?",rejoin:"Едешь к друзьям или в альянс на 1053?",seat:"Цвет места?",total:"Общая мощь героев?",squad:"Мощь 1-го отряда?",kills:"Сколько киллов?",conf:"Насколько уверен, что переедешь на 1053?",beef:"Есть тёрки с кем-то или с каким-то сервером?",comment:"Что-то ещё нам стоит знать?"},
- ph:{nickname:"Пиши сюда…",server:"напр. 812",crewWord:"напр. LMPR или BANANA SQUAD",rejoin:"Название команды или ник",total:"напр. 231,5",squad:"напр. 45,2",kills:"напр. 1 250 000",beef:"С кем и что, коротко",comment:"Необязательно, пиши что хочешь"},
+ q:{nickname:"Твой ник в игре?",server:"С какого ты сервера?",crew:"Едешь со своей бандой?",rejoin:"Едешь к друзьям или в альянс на 1053?",seat:"Цвет места?",score:"Какой у тебя трансфер-скор?",total:"Общая мощь героев?",squad:"Мощь 1-го отряда?",kills:"Сколько киллов?",conf:"Насколько уверен, что переедешь на 1053?",beef:"Есть тёрки с кем-то или с каким-то сервером?",comment:"Что-то ещё нам стоит знать?"},
+ ph:{nickname:"Пиши сюда…",server:"напр. 812",crewWord:"напр. LMPR или BANANA SQUAD",rejoin:"Название команды или ник",score:"напр. 961.0K или 5.70M",total:"напр. 231,5",squad:"напр. 45,2",kills:"напр. 1 250 000",beef:"С кем и что, коротко",comment:"Необязательно, пиши что хочешь"},
  crewOpts:["Не, я соло","Да, с бандой"],crewWordQ:"Кодовое слово банды?",crewWordHint:"Возьми название своего альянса или договоритесь о слове. Все пишут одно и то же.",
  crewSizeQ:"Сколько вас примерно? (необязательно)",crewSizeUnset:"Двигай, если знаешь 👉",crewSizeVal:"~{n} чел.",
  rejoinOpts:["Не","Да"],rejoinQ:"К какой команде или к кому?",
- milHint:"В миллионах: 231,5 = 231 500 000",killsHint:"Можно примерно, никто киллы поштучно не считает",
+ scoreHint:"Смотри в Transfer Surge › About Transfer Score. Пиши как в игре.",milHint:"В миллионах: 231,5 = 231 500 000",killsHint:"Можно примерно, никто киллы поштучно не считает",
  beefOpts:["Не, драма не моё","Были, но всё в прошлом","Есть, щас объясню"],
  seats:{gold:"Золотое",purple:"Фиолетовое",blue:"Синее",white:"Белое"},
  conf:["Просто смотрю 👀","Вряд ли","50 на 50","Почти точно","Точно еду 🔒"],slide:"Двигай, чтобы выбрать 👉",
  ok:"Ок",skip:"Пропустить",send:"Отправить",enter:"жми Enter ↵",
- e:{req:"Бро, ответь. Не ленись",range:"От 80 до 600М",squadMax:"Не может быть больше общей мощи, шеф",num:"Только цифры",beefEmpty:"Расскажи или выбери другой вариант",crewEmpty:"Впиши кодовое слово, банде оно нужно",rejoinEmpty:"К кому или в какую команду? Колись"},
+ e:{req:"Бро, ответь. Не ленись",score:"Пиши как в игре: 961K или 5.7M",range:"От 80 до 600М",squadMax:"Не может быть больше общей мощи, шеф",num:"Только цифры",beefEmpty:"Расскажи или выбери другой вариант",crewEmpty:"Впиши кодовое слово, банде оно нужно",rejoinEmpty:"К кому или в какую команду? Колись"},
  sending:"Отправляю…",weak:"Слабый сигнал. Не закрывай, щас уйдёт",fail:"Не отправилось. Ещё раз?",retry:"Повторить",
  done:"Принято 🙌",doneSub:"Скоро напишем. Увидимся на 1053!",doneNote:"Новый сайд-квест: скинь Lea голосовое в Discord. Не спрашивай. Просто сделай."}
 };
@@ -337,6 +343,16 @@ function parseInt0(raw, max){
   if (!isFinite(n) || n > max) return NaN;
   return n;
 }
+// Transfer score as the game shows it: 961K / 961.0K / 704.30K / 5.7M / 5,70M, or the full number.
+function parseScore(raw){
+  let s = String(raw||"").trim().replace(/\s+/g,"").toUpperCase().replace(/К/g,"K").replace(/М/g,"M");
+  if (!s) return null;
+  const m = s.match(/^([0-9]+(?:[.,][0-9]+)?)([KM])$/);
+  if (m) { const v = Number(m[1].replace(",", ".")) * (m[2] === "K" ? 1e3 : 1e6); return isFinite(v) && v > 0 ? Math.round(v) : NaN; }
+  if (/^[0-9]+$/.test(s) || /^[0-9]{1,3}([.,][0-9]{3})+$/.test(s)) { const v = Number(s.replace(/[.,]/g,"")); return v > 0 ? v : NaN; }
+  return NaN;
+}
+const fmtScore = n => n >= 1e6 ? fmt(n/1e6, "en-US", 2) + "M" : fmt(n/1e3, "en-US", 1) + "K";
 const TICK = `<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
 
 /* ============================ RACCOON ============================ */
@@ -356,6 +372,7 @@ const STEPS = [
   {id:"crew",     type:"crew"},
   {id:"rejoin",   type:"rejoin"},
   {id:"seat",     type:"seat"},
+  {id:"score",    type:"score", skip:true},
   {id:"total",    type:"mil"},
   {id:"squad",    type:"mil"},
   {id:"kills",    type:"kills"},
@@ -365,7 +382,7 @@ const STEPS = [
 ];
 const S = {
   lang:null, i:-1, dir:1, busy:false, sending:false, pending:null, docId:null,
-  a:{nickname:"",server:"",crew:null,crewWord:"",crewSize:null,rejoin:null,rejoinWho:"",seat:null,total:"",squad:"",kills:"",conf:null,beef:null,beefNote:"",comment:""}
+  a:{nickname:"",server:"",crew:null,crewWord:"",crewSize:null,rejoin:null,rejoinWho:"",seat:null,score:"",total:"",squad:"",kills:"",conf:null,beef:null,beefNote:"",comment:""}
 };
 const $app = document.getElementById("app");
 const $top = document.getElementById("top");
@@ -441,6 +458,7 @@ function render(){
     else showOk = false;
   }
   if (st.type === "seat") { body = `<div class="opts">${SEATS.map(s => optBtn("data-seat", s, t.seats[s], a.seat===s, `<span class="sw ${s}"></span>`)).join("")}</div>`; showOk = false; }
+  if (st.type === "score") body = `<div class="field"><input class="inp" id="v" data-k="score" inputmode="text" maxlength="16" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="${esc(t.ph.score)}" value="${esc(a.score)}"></div><p class="hint">${esc(t.scoreHint)}</p><div class="preview" id="pv"></div>`;
   if (st.type === "mil") body = `<div class="field"><input class="inp has-suffix" id="v" data-k="${st.id}" inputmode="decimal" maxlength="14" autocomplete="off" placeholder="${esc(t.ph[st.id])}" value="${esc(a[st.id])}"><span class="suffix">M</span></div><p class="hint">${esc(t.milHint)}</p><div class="preview" id="pv"></div>`;
   if (st.type === "kills") body = `<div class="field"><input class="inp" id="v" data-k="kills" inputmode="numeric" maxlength="17" autocomplete="off" placeholder="${esc(t.ph.kills)}" value="${esc(a.kills)}"></div><p class="hint">${esc(t.killsHint)}</p><div class="preview" id="pv"></div>`;
   if (st.type === "slider") {
@@ -480,6 +498,7 @@ function wire(st){
     if (!pv || !v) return;
     if (st.type === "mil") { const n = parseMil(v.value); pv.textContent = (n != null && !isNaN(n) && n > 0) ? "= " + fmt(n*1e6, loc) : ""; }
     if (st.type === "kills") { const n = parseInt0(v.value, 1e12); pv.textContent = (n != null && !isNaN(n)) ? "= " + fmt(n, loc) : ""; }
+    if (st.type === "score") { const n = parseScore(v.value); pv.textContent = (n != null && !isNaN(n)) ? "= " + fmt(n, loc) : ""; }
   };
   if (v) {
     v.addEventListener("input", () => { a[v.dataset.k] = v.value; er.textContent = ""; updPreview(); });
@@ -547,6 +566,7 @@ function validate(st){
     case "crew": if (!a.crew) return t.e.req; return (a.crew === "crew" && !a.crewWord.trim()) ? t.e.crewEmpty : null;
     case "rejoin": if (!a.rejoin) return t.e.req; return (a.rejoin === "yes" && !a.rejoinWho.trim()) ? t.e.rejoinEmpty : null;
     case "seat": return a.seat ? null : t.e.req;
+    case "score": { const n = parseScore(a.score); if (n === null) return null; return (isNaN(n) || n > 1e9) ? t.e.score : null; }
     case "total": { const n = parseMil(a.total); if (n === null) return t.e.req; if (isNaN(n)) return t.e.num; return (n < 80 || n > 600) ? t.e.range : null; }
     case "squad": {
       const n = parseMil(a.squad); if (n === null) return t.e.req; if (isNaN(n) || n <= 0) return t.e.num;
@@ -588,6 +608,7 @@ function buildData(){
     crewSize: a.crew === "crew" ? a.crewSize : null,
     rejoin: a.rejoin === "yes" ? a.rejoinWho.trim().slice(0, 80) : "",
     seat: a.seat,
+    score: parseScore(a.score),
     totalPower: parseMil(a.total),
     squadPower: parseMil(a.squad),
     kills: parseInt0(a.kills, 1e12),
@@ -641,6 +662,7 @@ async function flushDraft(){
 const CONF_EN = T.en.conf, SEAT_EN = T.en.seats;
 const BEEF_EN = {none:"No beef", past:"Beef, left behind", explain:"Has beef"};
 let rows = [], unsub = null;
+const notes = {open:null, draft:""};
 
 const P = m => m >= 1000 ? fmt(m/1000, "en-US", 2) + "G" : fmt(m, "en-US", 1) + "M";
 const pl = n => `${n} player${n===1?"":"s"}`;
@@ -691,6 +713,9 @@ function boardLogin(msg){
 }
 
 function renderBoard(){
+  // keep an open note (and the cursor) through live refreshes
+  const ae = document.activeElement, hadFocus = ae && ae.id === "nt", caret = hadFocus ? ae.selectionStart : 0;
+  if (notes.open && !rows.some(r => r.id === notes.open)) notes.open = null;
   const {groups, totals, crews, dupes} = analyse(rows);
   const tr = (label, x, sw) => `<div class="trow"><span>${sw ? `<span class="sw ${sw}"></span>` : ""}${label}</span><b>${pl(x.n)}, ${P(x.p)}</b></div>`;
   const crewRow = c => `<div class="trow"><span>${esc(c.name)}</span><b>${c.size ? `${c.applied}/${c.size}` : c.applied} applied, ${c.forms} form${c.forms===1?"":"s"}, ${P(c.p)}</b></div>`;
@@ -718,15 +743,38 @@ function renderBoard(){
           <button class="applied ${r.applied?"on":""}" data-id="${esc(r.id)}" data-v="${r.applied?1:0}" aria-pressed="${r.applied?"true":"false"}"><span class="box"></span>Applied</button>
         </div>
         <div class="stats">
+          <div class="stat"><small>Score</small><b>${r.score ? fmtScore(r.score) : "–"}</b></div>
           <div class="stat"><small>Total power</small><b>${r.totalPower != null ? P(r.totalPower) : "–"}</b></div>
           <div class="stat"><small>1st squad</small><b>${r.squadPower != null ? P(r.squadPower) : "–"}</b></div>
           <div class="stat"><small>Kills</small><b>${r.kills != null ? fmt(r.kills) : "–"}</b></div>
         </div>
         ${r.beefNote ? `<div class="comment"><b>Beef:</b> ${esc(r.beefNote)}</div>` : ""}
         ${r.comment ? `<div class="comment">${esc(r.comment)}</div>` : ""}
+        ${notes.open === r.id
+          ? `<div class="notebox"><textarea id="nt" maxlength="2000" placeholder="Leader note, only the board sees this">${esc(notes.draft)}</textarea>
+             <div class="row"><button class="bbtn" data-save="${esc(r.id)}">Save</button><button class="bbtn ghost" data-cancel="1">Cancel</button></div></div>`
+          : `<button class="notebtn" data-note="${esc(r.id)}">${r.note ? `<span class="dot"></span>Note` : "+ Note"}</button>`}
       </div>`).join("")}
     </section>`).join("")}
   </div>`;
+  const nt = document.getElementById("nt");
+  if (nt) {
+    nt.addEventListener("input", () => { notes.draft = nt.value; });
+    if (hadFocus) { nt.focus({preventScroll:true}); try { nt.setSelectionRange(caret, caret); } catch(_){} }
+  }
+  $app.querySelectorAll("[data-note]").forEach(b => b.onclick = () => {
+    const r = rows.find(x => x.id === b.dataset.note);
+    notes.open = b.dataset.note; notes.draft = (r && r.note) || ""; renderBoard();
+    const box = document.getElementById("nt"); if (box) box.focus({preventScroll:true});
+  });
+  $app.querySelectorAll("[data-cancel]").forEach(b => b.onclick = () => { notes.open = null; notes.draft = ""; renderBoard(); });
+  $app.querySelectorAll("[data-save]").forEach(b => b.onclick = async () => {
+    b.disabled = true;
+    try {
+      await updateDoc(doc(db, COL, b.dataset.save), {note: notes.draft.trim().slice(0, 2000)});
+      notes.open = null; notes.draft = ""; renderBoard(); toast("Note saved");
+    } catch (e) { console.error(e); toast("Couldn't save the note. Check your connection and try again."); b.disabled = false; }
+  });
   document.getElementById("lo").onclick = () => signOut(auth);
   document.getElementById("csv").onclick = exportCsv;
   $app.querySelectorAll(".applied").forEach(b => b.onclick = async () => {
@@ -752,11 +800,11 @@ async function exportCsv(){
     crews.forEach(c => R.push([c.name, c.applied, c.size ?? "", c.forms, c.p]));
     R.push([]);
   }
-  R.push(["Nickname","Server","Seat","Total hero power (M)","1st squad power (M)","Kills","Confidence (1-5)","Confident or hesitating","Crew","Crew size","Rejoining","Applied","Duplicate","Beef","Beef details","Comment","Submitted (UTC)"]);
+  R.push(["Nickname","Server","Seat","Transfer score","Total hero power (M)","1st squad power (M)","Kills","Confidence (1-5)","Confident or hesitating","Crew","Crew size","Rejoining","Applied","Duplicate","Beef","Beef details","Comment","Leader note","Submitted (UTC)"]);
   groups.forEach(g => g.items.forEach(r => R.push([
-    r.nickname, r.server ?? "", SEAT_EN[r.seat], r.totalPower ?? "", r.squadPower ?? "", r.kills ?? "",
+    r.nickname, r.server ?? "", SEAT_EN[r.seat], r.score ?? "", r.totalPower ?? "", r.squadPower ?? "", r.kills ?? "",
     r.confidence ?? "", isWarm(r) ? "Confident" : "Hesitating", r.crew || "Solo", r.crewSize ?? "", r.rejoin || "",
-    r.applied ? "Yes" : "No", r.dupe ? "Yes" : "No", r.beef ? BEEF_EN[r.beef] : "", r.beefNote || "", r.comment || "",
+    r.applied ? "Yes" : "No", r.dupe ? "Yes" : "No", r.beef ? BEEF_EN[r.beef] : "", r.beefNote || "", r.comment || "", r.note || "",
     ms(r) ? new Date(ms(r)).toISOString().slice(0,16).replace("T"," ") : ""
   ])));
   const text = "﻿" + R.map(r => r.map(csvCell).join(",")).join("\r\n");
