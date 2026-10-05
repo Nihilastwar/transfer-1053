@@ -13,13 +13,13 @@
 <meta property="og:title" content="Join 1053">
 <meta property="og:description" content="Nobody here has ever made a bad decision. Don&#39;t fact check that. Overall we tried to be normal once, got bored after 3 mins and now we just vibin. #yeroloveslea">
 <meta property="og:url" content="https://nihilastwar.github.io/transfer-1053/">
-<meta property="og:image" content="https://nihilastwar.github.io/transfer-1053/banner.jpg">
+<meta property="og:image" content="https://nihilastwar.github.io/transfer-1053/banner-v2.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Join 1053">
 <meta name="twitter:description" content="Nobody here has ever made a bad decision. Don&#39;t fact check that. Overall we tried to be normal once, got bored after 3 mins and now we just vibin. #yeroloveslea">
-<meta name="twitter:image" content="https://nihilastwar.github.io/transfer-1053/banner.jpg">
+<meta name="twitter:image" content="https://nihilastwar.github.io/transfer-1053/banner-v2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -784,7 +784,12 @@ function renderBoard(){
   });
 }
 
-function csvCell(v){ const s = v == null ? "" : String(v); return /[",\n\r]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; }
+// Text typed by applicants that starts with = + - @ is prefixed with ' so spreadsheet apps never run it as a formula.
+function csvCell(v){
+  let s = v == null ? "" : String(v);
+  if (typeof v === "string" && /^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s;
+}
 async function exportCsv(){
   const {groups, totals, crews} = analyse(rows);
   const now = new Date(), stamp = now.toISOString().slice(0,16).replace("T"," ");
@@ -807,7 +812,7 @@ async function exportCsv(){
     r.applied ? "Yes" : "No", r.dupe ? "Yes" : "No", r.beef ? BEEF_EN[r.beef] : "", r.beefNote || "", r.comment || "", r.note || "",
     ms(r) ? new Date(ms(r)).toISOString().slice(0,16).replace("T"," ") : ""
   ])));
-  const text = "﻿" + R.map(r => r.map(csvCell).join(",")).join("\r\n");
+  const text = "\uFEFF" + R.map(r => r.map(csvCell).join(",")).join("\r\n");
   const name = `transfer-1053-${now.toISOString().slice(0,10)}.csv`;
   const file = new File([text], name, {type:"text/csv"});
   try { if (navigator.canShare && navigator.canShare({files:[file]})) { await navigator.share({files:[file], title:name}); return; } }
