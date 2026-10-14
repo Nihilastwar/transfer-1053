@@ -178,6 +178,19 @@ input[type=range].unset::-moz-range-thumb{background:var(--ink-faint)}
 .applied.on .box{background:var(--ok);border-color:var(--ok)}
 .applied.on .box::after{content:"";width:8px;height:4px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
 .empty{margin-top:30px;color:var(--ink-soft);font-weight:600}
+.filters{margin-top:12px;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:10px}
+.filters input,.filters select{width:100%;border:2px solid var(--line);border-radius:10px;background:var(--card);padding:9px 12px;font-size:15px;font-weight:600;outline:none;color:var(--ink)}
+.filters input:focus,.filters select:focus{border-color:var(--ink)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--card);border-radius:20px;padding:5px 11px;font-weight:700;font-size:13px}
+.chip .sw{width:14px;height:14px;border-radius:4px}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.fmeta{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:var(--ink-soft)}
+.fmeta button{background:none;border:0;font-weight:700;font-size:13px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;padding:0}
+.card.canceled{opacity:.5}
+.cardfoot{display:flex;gap:16px;align-items:center;margin-top:10px}
+.cardfoot .notebtn{margin-top:0}
 .login{max-width:400px;margin:0 auto;padding:110px 22px}
 .login .inp{font-size:19px;margin-top:18px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:14px;z-index:20;max-width:90vw}
@@ -662,6 +675,22 @@ const CONF_EN = T.en.conf, SEAT_EN = T.en.seats;
 const BEEF_EN = {none:"No beef", past:"Beef, left behind", explain:"Has beef"};
 let rows = [], unsub = null;
 const notes = {open:null, draft:""};
+const filt = {q:"", seats:[], crew:"", rejoin:""};
+
+// Crew names typed differently are counted as one crew (display only, answers are never changed).
+// Case, spaces and symbols are ignored, O counts as 0 and 5 counts as S, so K40S / K4OS / K4Os / K4o5 match.
+// Names listed here are folded into one crew as well.
+const CREW_ALIASES = [
+  {name:"K4OS", match:["K40S","KA0S","K0AS"]}   // K4OS, Kaos, Koas, Controlled Kaos, [K40S] controlled koas …
+];
+const crewNorm = s => String(s||"").toUpperCase().replace(/[^A-Z0-9]/g,"").replace(/O/g,"0").replace(/5/g,"S");
+function crewOf(raw){
+  if (!raw || !String(raw).trim()) return null;
+  const k = crewNorm(raw);
+  for (const a of CREW_ALIASES) if (a.match.some(m => k.includes(m))) return {key:"alias:" + a.name, name:a.name};
+  return {key:k || keyOf(raw), name:String(raw).trim()};
+}
+const rejoinKey = s => String(s||"").trim().toLowerCase().replace(/\s+/g," ");
 
 const P = m => m >= 1000 ? fmt(m/1000, "en-US", 2) + "G" : fmt(m, "en-US", 1) + "M";
 const pl = n => `${n} player${n===1?"":"s"}`;
@@ -673,10 +702,11 @@ function toast(msg){ const el = document.createElement("div"); el.className = "t
 function analyse(list){
   const newest = new Map();
   list.forEach(r => { const k = keyOf(r.nickname); const c = newest.get(k); if (!c || ms(r) > ms(c)) newest.set(k, r); });
-  const out = list.map(r => ({...r, dupe: newest.get(keyOf(r.nickname)).id !== r.id}));
-  const live = out.filter(r => !r.dupe);
+  const out = list.map(r => ({...r, dupe: newest.get(keyOf(r.nickname)).id !== r.id, crewM: crewOf(r.crew)}));
+  const live = out.filter(r => !r.dupe && !r.canceled);
   const sorter = (x, y) => (y.confidence||0) - (x.confidence||0) || (y.squadPower||0) - (x.squadPower||0) || ms(y) - ms(x);
-  const groups = SEATS.map(s => ({seat:s, items: out.filter(r => r.seat === s).sort((x,y) => (x.dupe - y.dupe) || sorter(x,y))}));
+  const rank = r => (r.dupe ? 2 : 0) + (r.canceled ? 1 : 0);
+  const groups = SEATS.map(s => ({seat:s, items: out.filter(r => r.seat === s).sort((x,y) => (rank(x) - rank(y)) || sorter(x,y))}));
   const sum = arr => Math.round(arr.reduce((t, r) => t + (r.totalPower||0), 0) * 10) / 10;
   const warm = live.filter(isWarm), cold = live.filter(r => !isWarm(r));
   const totals = {
@@ -684,15 +714,22 @@ function analyse(list){
     seat:Object.fromEntries(SEATS.map(s => { const x = live.filter(r => r.seat === s); return [s, {n:x.length, p:sum(x)}]; }))
   };
   const cm = new Map();
-  live.filter(r => r.crew).forEach(r => {
-    const k = keyOf(r.crew);
-    if (!cm.has(k)) cm.set(k, {name:r.crew.trim(), forms:0, applied:0, size:null, p:0});
+  live.filter(r => r.crewM).forEach(r => {
+    const k = r.crewM.key;
+    if (!cm.has(k)) cm.set(k, {key:k, name:r.crewM.name, forms:0, applied:0, size:null, p:0});
     const c = cm.get(k);
     c.forms++; if (r.applied) c.applied++; c.p += r.totalPower||0;
-    if (r.crewSize != null) c.size = Math.max(c.size || 0, r.crewSize);
   });
+  // stated crew size counts even if that player later canceled
+  out.filter(r => !r.dupe && r.crewM && r.crewSize != null && cm.has(r.crewM.key)).forEach(r => { const c = cm.get(r.crewM.key); c.size = Math.max(c.size || 0, r.crewSize); });
   const crews = [...cm.values()].map(c => ({...c, p:Math.round(c.p*10)/10})).sort((x,y) => y.forms - x.forms || x.name.localeCompare(y.name));
-  return {groups, totals, crews, dupes: out.length - live.length};
+  const crewOpts = new Map(), rejoinOpts = new Map();
+  out.forEach(r => {
+    if (r.crewM && !crewOpts.has(r.crewM.key)) crewOpts.set(r.crewM.key, r.crewM.name);
+    if (r.rejoin && !rejoinOpts.has(rejoinKey(r.rejoin))) rejoinOpts.set(rejoinKey(r.rejoin), r.rejoin.trim());
+  });
+  return {groups, totals, crews, dupes: out.filter(r => r.dupe).length, canceled: out.filter(r => r.canceled && !r.dupe).length,
+    crewOpts:[...crewOpts].sort((a,b) => a[1].localeCompare(b[1])), rejoinOpts:[...rejoinOpts].sort((a,b) => a[1].localeCompare(b[1]))};
 }
 
 function boardLogin(msg){
@@ -712,29 +749,50 @@ function boardLogin(msg){
 }
 
 function renderBoard(){
-  // keep an open note (and the cursor) through live refreshes
-  const ae = document.activeElement, hadFocus = ae && ae.id === "nt", caret = hadFocus ? ae.selectionStart : 0;
+  // keep focus and cursor (search box or open note) through live refreshes
+  const ae = document.activeElement, focusId = ae && (ae.id === "nt" || ae.id === "fq") ? ae.id : null, caret = focusId ? ae.selectionStart : 0;
   if (notes.open && !rows.some(r => r.id === notes.open)) notes.open = null;
-  const {groups, totals, crews, dupes} = analyse(rows);
+  const {groups, totals, crews, dupes, canceled, crewOpts, rejoinOpts} = analyse(rows);
+  if (filt.crew && !crewOpts.some(([k]) => k === filt.crew) && filt.crew !== "solo") filt.crew = "";
+  if (filt.rejoin && !rejoinOpts.some(([k]) => k === filt.rejoin)) filt.rejoin = "";
+  const q = filt.q.trim().toLowerCase();
+  const shown = r => (!q || String(r.nickname||"").toLowerCase().includes(q))
+    && (!filt.seats.length || filt.seats.includes(r.seat))
+    && (!filt.crew || (filt.crew === "solo" ? !r.crewM : (r.crewM && r.crewM.key === filt.crew)))
+    && (!filt.rejoin || rejoinKey(r.rejoin) === filt.rejoin);
+  const vgroups = groups.map(g => ({...g, items: g.items.filter(shown)}));
+  const nShown = vgroups.reduce((t, g) => t + g.items.length, 0);
+  const active = !!(q || filt.seats.length || filt.crew || filt.rejoin);
   const tr = (label, x, sw) => `<div class="trow"><span>${sw ? `<span class="sw ${sw}"></span>` : ""}${label}</span><b>${pl(x.n)}, ${P(x.p)}</b></div>`;
   const crewRow = c => `<div class="trow"><span>${esc(c.name)}</span><b>${c.size ? `${c.applied}/${c.size}` : c.applied} applied, ${c.forms} form${c.forms===1?"":"s"}, ${P(c.p)}</b></div>`;
   $app.innerHTML = `<div class="board">
-    <div class="bhead"><div><h1>Transfer board</h1><div class="bsub">${rows.length} application${rows.length===1?"":"s"}${dupes ? `, ${dupes} duplicate${dupes>1?"s":""} (not counted)` : ""}</div></div>
+    <div class="bhead"><div><h1>Transfer board</h1><div class="bsub">${rows.length} application${rows.length===1?"":"s"}${dupes ? `, ${dupes} duplicate${dupes>1?"s":""}` : ""}${canceled ? `, ${canceled} canceled` : ""}${dupes || canceled ? " (not counted)" : ""}</div></div>
       <div class="bbtns"><button class="bbtn" id="csv">Export CSV</button><button class="bbtn ghost" id="lo">Log out</button></div></div>
     <div class="tgrid">
       <div class="totals"><h2>Power by confidence</h2>${tr("Confident (4–5)", totals.warm)}${tr("Hesitating (1–3)", totals.cold)}${tr("All", totals.all)}</div>
       <div class="totals"><h2>Power by seat</h2>${SEATS.map(s => tr(SEAT_EN[s], totals.seat[s], s)).join("")}</div>
     </div>
     ${crews.length ? `<div class="totals crews"><h2>Crews</h2>${crews.map(crewRow).join("")}</div>` : ""}
+    ${rows.length ? `<div class="filters">
+      <input id="fq" type="search" placeholder="Search nickname" value="${esc(filt.q)}" autocomplete="off">
+      <div class="chips">${SEATS.map(s => `<button class="chip ${filt.seats.includes(s)?"on":""}" data-fseat="${s}"><span class="sw ${s}"></span>${SEAT_EN[s]}</button>`).join("")}</div>
+      <div class="frow">
+        <select id="fcrew"><option value="">All crews</option><option value="solo" ${filt.crew==="solo"?"selected":""}>Solo</option>${crewOpts.map(([k,n]) => `<option value="${esc(k)}" ${filt.crew===k?"selected":""}>${esc(n)}</option>`).join("")}</select>
+        <select id="frejoin"><option value="">Rejoining: anyone</option>${rejoinOpts.map(([k,n]) => `<option value="${esc(k)}" ${filt.rejoin===k?"selected":""}>${esc(n)}</option>`).join("")}</select>
+      </div>
+      <div class="fmeta"><span>${active ? `Showing ${nShown} of ${rows.length}` : `${rows.length} shown`}</span>${active ? `<button id="fclear">Clear filters</button>` : ""}</div>
+    </div>` : ""}
     ${rows.length === 0 ? `<p class="empty">No applications yet. Share the form link to get the first ones in.</p>` : ""}
-    ${groups.filter(g => g.items.length).map(g => `<section class="group">
-      <div class="ghead"><span class="sw ${g.seat}"></span>${SEAT_EN[g.seat]} <small>${pl(g.items.filter(r => !r.dupe).length)}</small></div>
-      ${g.items.map(r => `<div class="card ${r.dupe?"dupe":""}">
+    ${active && nShown === 0 ? `<p class="empty">No one matches these filters.</p>` : ""}
+    ${vgroups.filter(g => g.items.length).map(g => `<section class="group">
+      <div class="ghead"><span class="sw ${g.seat}"></span>${SEAT_EN[g.seat]} <small>${pl(g.items.filter(r => !r.dupe && !r.canceled).length)}</small></div>
+      ${g.items.map(r => `<div class="card ${r.dupe?"dupe":""} ${r.canceled?"canceled":""}">
         <div class="ctop"><div><div class="cname">${esc(r.nickname)}</div>
           <div class="badges">
             ${r.server != null ? `<span class="badge">Server ${esc(r.server)}</span>` : ""}
             <span class="badge ${isWarm(r)?"warm":""}">${r.confidence ? `${r.confidence}/5 ${esc(CONF_EN[r.confidence-1])}` : "Confidence –"}</span>
-            ${r.crew ? `<span class="badge">Crew: ${esc(r.crew)}${r.crewSize ? ` (~${esc(r.crewSize)})` : ""}</span>` : `<span class="badge">Solo</span>`}
+            ${r.canceled ? `<span class="badge red">Canceled</span>` : ""}
+            ${r.crewM ? `<span class="badge">Crew: ${esc(r.crewM.name)}${r.crewSize ? ` (~${esc(r.crewSize)})` : ""}</span>` : `<span class="badge">Solo</span>`}
             ${r.rejoin ? `<span class="badge">Rejoining: ${esc(r.rejoin)}</span>` : ""}
             ${r.beef ? `<span class="badge ${r.beef==="explain"?"red":""}">${BEEF_EN[r.beef]}</span>` : ""}
             ${r.dupe ? `<span class="badge red">Duplicate, older entry</span>` : ""}
@@ -752,15 +810,26 @@ function renderBoard(){
         ${notes.open === r.id
           ? `<div class="notebox"><textarea id="nt" maxlength="2000" placeholder="Leader note, only the board sees this">${esc(notes.draft)}</textarea>
              <div class="row"><button class="bbtn" data-save="${esc(r.id)}">Save</button><button class="bbtn ghost" data-cancel="1">Cancel</button></div></div>`
-          : `<button class="notebtn" data-note="${esc(r.id)}">${r.note ? `<span class="dot"></span>Note` : "+ Note"}</button>`}
+          : `<div class="cardfoot"><button class="notebtn" data-note="${esc(r.id)}">${r.note ? `<span class="dot"></span>Note` : "+ Note"}</button><button class="notebtn" data-cancel-id="${esc(r.id)}" data-cv="${r.canceled?1:0}">${r.canceled ? "Undo cancel" : "Mark canceled"}</button></div>`}
       </div>`).join("")}
     </section>`).join("")}
   </div>`;
   const nt = document.getElementById("nt");
-  if (nt) {
-    nt.addEventListener("input", () => { notes.draft = nt.value; });
-    if (hadFocus) { nt.focus({preventScroll:true}); try { nt.setSelectionRange(caret, caret); } catch(_){} }
-  }
+  if (nt) nt.addEventListener("input", () => { notes.draft = nt.value; });
+  if (focusId) { const el = document.getElementById(focusId); if (el) { el.focus({preventScroll:true}); try { el.setSelectionRange(caret, caret); } catch(_){} } }
+  const fq = document.getElementById("fq");
+  if (fq) fq.addEventListener("input", () => { filt.q = fq.value; renderBoard(); });
+  $app.querySelectorAll("[data-fseat]").forEach(b => b.onclick = () => {
+    const s = b.dataset.fseat; filt.seats = filt.seats.includes(s) ? filt.seats.filter(x => x !== s) : [...filt.seats, s]; renderBoard();
+  });
+  const fc = document.getElementById("fcrew"); if (fc) fc.onchange = () => { filt.crew = fc.value; renderBoard(); };
+  const fr = document.getElementById("frejoin"); if (fr) fr.onchange = () => { filt.rejoin = fr.value; renderBoard(); };
+  const fx = document.getElementById("fclear"); if (fx) fx.onclick = () => { filt.q = ""; filt.seats = []; filt.crew = ""; filt.rejoin = ""; renderBoard(); };
+  $app.querySelectorAll("[data-cancel-id]").forEach(b => b.onclick = async () => {
+    b.disabled = true;
+    try { await updateDoc(doc(db, COL, b.dataset.cancelId), {canceled: b.dataset.cv !== "1"}); }
+    catch (e) { console.error(e); toast("Couldn't save that. Check your connection and try again."); b.disabled = false; }
+  });
   $app.querySelectorAll("[data-note]").forEach(b => b.onclick = () => {
     const r = rows.find(x => x.id === b.dataset.note);
     notes.open = b.dataset.note; notes.draft = (r && r.note) || ""; renderBoard();
@@ -794,7 +863,7 @@ async function exportCsv(){
   const now = new Date(), stamp = now.toISOString().slice(0,16).replace("T"," ");
   const R = [];
   R.push(["Transfer to 1053 export", stamp], []);
-  R.push(["Totals (duplicates not counted)","Players","Total hero power (M)"]);
+  R.push(["Totals (duplicates and canceled not counted)","Players","Total hero power (M)"]);
   R.push(["Confident (4-5)", totals.warm.n, totals.warm.p]);
   R.push(["Hesitating (1-3)", totals.cold.n, totals.cold.p]);
   SEATS.forEach(s => R.push([SEAT_EN[s] + " seats", totals.seat[s].n, totals.seat[s].p]));
@@ -804,11 +873,11 @@ async function exportCsv(){
     crews.forEach(c => R.push([c.name, c.applied, c.size ?? "", c.forms, c.p]));
     R.push([]);
   }
-  R.push(["Nickname","Server","Seat","Transfer score","Total hero power (M)","1st squad power (M)","Kills","Confidence (1-5)","Confident or hesitating","Crew","Crew size","Rejoining","Applied","Duplicate","Beef","Beef details","Comment","Leader note","Submitted (UTC)"]);
+  R.push(["Nickname","Server","Seat","Transfer score","Total hero power (M)","1st squad power (M)","Kills","Confidence (1-5)","Confident or hesitating","Crew (as typed)","Crew (merged)","Crew size","Rejoining","Applied","Canceled","Duplicate","Beef","Beef details","Comment","Leader note","Submitted (UTC)"]);
   groups.forEach(g => g.items.forEach(r => R.push([
     r.nickname, r.server ?? "", SEAT_EN[r.seat], r.score ?? "", r.totalPower ?? "", r.squadPower ?? "", r.kills ?? "",
-    r.confidence ?? "", isWarm(r) ? "Confident" : "Hesitating", r.crew || "Solo", r.crewSize ?? "", r.rejoin || "",
-    r.applied ? "Yes" : "No", r.dupe ? "Yes" : "No", r.beef ? BEEF_EN[r.beef] : "", r.beefNote || "", r.comment || "", r.note || "",
+    r.confidence ?? "", isWarm(r) ? "Confident" : "Hesitating", r.crew || "Solo", r.crewM ? r.crewM.name : "Solo", r.crewSize ?? "", r.rejoin || "",
+    r.applied ? "Yes" : "No", r.canceled ? "Yes" : "No", r.dupe ? "Yes" : "No", r.beef ? BEEF_EN[r.beef] : "", r.beefNote || "", r.comment || "", r.note || "",
     ms(r) ? new Date(ms(r)).toISOString().slice(0,16).replace("T"," ") : ""
   ])));
   const text = "\uFEFF" + R.map(r => r.map(csvCell).join(",")).join("\r\n");
